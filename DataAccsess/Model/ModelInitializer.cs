@@ -7,10 +7,13 @@ using System.Threading.Tasks;
 
 namespace DataAccsess.Model
 {
-    class ModelInitializer:DropCreateDatabaseIfModelChanges <DataModelContainer>
+    class ModelInitializer:CreateDatabaseIfNotExists <DataModelContainer>
     {
         protected override void Seed(DataModelContainer context)
         {
+
+            base.Seed(context);
+
             var pType = new ProductType(){Name = "Type1"};
 
             context.ProductTypeSet.Add(pType);
@@ -20,7 +23,7 @@ namespace DataAccsess.Model
 
 
             context.SaveChanges();
-            //base.Seed(context);
+
         }
     }
 }
