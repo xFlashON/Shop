@@ -19,6 +19,7 @@
         <AssociationConnector Association="DataModel.OrderOrderRows" />
         <AssociationConnector Association="DataModel.OrderRowsProduct" />
         <AssociationConnector Association="DataModel.PriceTypeOrder" />
+        <EntityTypeShape EntityType="DataModel.News" Width="1.5" PointX="8" PointY="0.5" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

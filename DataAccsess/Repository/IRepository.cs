@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DataAccsess.Repository
 {
-    interface IRepository <T>
+    public interface IRepository <T>
     {
         IEnumerable<T> GetAll(Expression<Func<T,bool>> func = null);
 

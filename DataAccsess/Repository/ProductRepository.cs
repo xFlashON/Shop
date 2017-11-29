@@ -8,7 +8,7 @@ using System.Linq.Expressions;
 
 namespace DataAccsess.Repository
 {
-    class ProductRepository : BaseRepository, IRepository<Product>
+    public class ProductRepository : BaseRepository, IRepository<Product>
     {
         public Product Get(int id)
         {
@@ -17,7 +17,7 @@ namespace DataAccsess.Repository
 
         public IEnumerable<Product> GetAll(Expression<Func<Product, bool>> func = null)
         {
-            throw new NotImplementedException();
+            return context.ProductSet.ToList();
         }
 
         public void Create(Product item)

@@ -12,14 +12,18 @@ namespace DataAccsess.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class OrderRows
+    public partial class News
     {
-        public int Id { get; set; }
-        public int OrderId { get; set; }
-        public decimal Qty { get; set; }
-        public decimal Price { get; set; }
-        public decimal Sum { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public News()
+        {
+            this.Title = "";
+            this.Content = "";
+        }
     
-        public virtual Product Product { get; set; }
+        public int Id { get; set; }
+        public System.DateTime Date { get; set; }
+        public string Title { get; set; }
+        public string Content { get; set; }
     }
 }

@@ -13,6 +13,7 @@
     <EntitySet Name="ProductImageSet" EntityType="DataModel.Store.ProductImageSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="OrderSet" EntityType="DataModel.Store.OrderSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="OrderRowsSet" EntityType="DataModel.Store.OrderRowsSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="NewsSet" EntityType="DataModel.Store.NewsSet" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="ProductProductType" Association="DataModel.Store.ProductProductType">
       <End Role="Product" EntitySet="ProductSet" />
       <End Role="ProductType" EntitySet="ProductTypeSet" />
@@ -104,6 +105,15 @@
     <Property Name="Price" Type="decimal" Nullable="false" />
     <Property Name="Sum" Type="decimal" Nullable="false" />
     <Property Name="Product_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="NewsSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Date" Type="datetime" Nullable="false" />
+    <Property Name="Title" Type="nvarchar(max)" Nullable="false" DefaultValue="" />
+    <Property Name="Content" Type="nvarchar(max)" Nullable="false" DefaultValue="" />
   </EntityType>
   <Association Name="ProductProductType">
     <End Role="Product" Type="DataModel.Store.ProductSet" Multiplicity="*" />
@@ -229,6 +239,7 @@
             <End Role="PriceType" EntitySet="PriceTypeSet" />
             <End Role="Order" EntitySet="OrderSet" />
           </AssociationSet>
+          <EntitySet Name="NewsSet" EntityType="DataModel.News" />
         </EntityContainer>
         <EntityType Name="Product">
           <Key>
@@ -335,6 +346,15 @@
           <End Type="DataModel.PriceType" Role="PriceType" Multiplicity="1" />
           <End Type="DataModel.Order" Role="Order" Multiplicity="*" />
         </Association>
+        <EntityType Name="News">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns="http://schemas.microsoft.com/ado/2009/11/edm" />
+          <Property Name="Date" Type="DateTime" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" DefaultValue="" />
+          <Property Name="Content" Type="String" Nullable="false" DefaultValue="" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -402,6 +422,16 @@
           <ScalarProperty Name="Qty" ColumnName="Qty" />
           <ScalarProperty Name="Price" ColumnName="Price" />
           <ScalarProperty Name="Sum" ColumnName="Sum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NewsSet">
+      <EntityTypeMapping TypeName="IsTypeOf(DataModel.News)">
+        <MappingFragment StoreEntitySet="NewsSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

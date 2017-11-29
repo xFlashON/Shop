@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 11/29/2017 13:59:04
--- Generated from EDMX file: C:\Users\user\source\repos\Shop\DataAccsess\Model\DataModel.edmx
+-- Date Created: 11/29/2017 19:21:23
+-- Generated from EDMX file: C:\Users\N\Source\Repos\Shop\DataAccsess\Model\DataModel.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -132,6 +132,15 @@ CREATE TABLE [dbo].[OrderRowsSet] (
 );
 GO
 
+-- Creating table 'NewsSet'
+CREATE TABLE [dbo].[NewsSet] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Date] datetime  NOT NULL,
+    [Title] nvarchar(max)  NOT NULL,
+    [Content] nvarchar(max)  NOT NULL
+);
+GO
+
 -- --------------------------------------------------
 -- Creating all PRIMARY KEY constraints
 -- --------------------------------------------------
@@ -175,6 +184,12 @@ GO
 -- Creating primary key on [Id] in table 'OrderRowsSet'
 ALTER TABLE [dbo].[OrderRowsSet]
 ADD CONSTRAINT [PK_OrderRowsSet]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'NewsSet'
+ALTER TABLE [dbo].[NewsSet]
+ADD CONSTRAINT [PK_NewsSet]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 

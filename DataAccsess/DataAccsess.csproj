@@ -65,6 +65,9 @@
       <DependentUpon>DataModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Model\ModelInitializer.cs" />
+    <Compile Include="Model\News.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\Order.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
@@ -93,6 +96,7 @@
     <Compile Include="Repository\BaseRepository.cs" />
     <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Repository\ProductRepository.cs" />
+    <Compile Include="Repository\ProductTypeRepository.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

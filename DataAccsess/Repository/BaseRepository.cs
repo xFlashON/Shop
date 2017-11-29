@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataAccsess.Repository
 {
-    abstract class BaseRepository
+    public abstract class BaseRepository
     {
         protected DataModelContainer context;
 
