@@ -47,9 +47,9 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Name" Type="nvarchar(max)" Nullable="false" DefaultValue="string.Empty" />
-    <Property Name="Description" Type="nvarchar(max)" Nullable="false" DefaultValue="string.Empty" />
-    <Property Name="ShortDescription" Type="nvarchar" Nullable="false" DefaultValue="string.Empty" MaxLength="150" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" DefaultValue="" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" DefaultValue="" />
+    <Property Name="ShortDescription" Type="nvarchar" Nullable="false" DefaultValue="" MaxLength="150" />
     <Property Name="ProductType_Id" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="ProductTypeSet">
@@ -57,14 +57,14 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" DefaultValue="" />
   </EntityType>
   <EntityType Name="PriceTypeSet">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" DefaultValue="" />
   </EntityType>
   <EntityType Name="PricesSet">
     <Key>
@@ -236,9 +236,9 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="ProductType" Relationship="DataModel.ProductProductType" FromRole="Product" ToRole="ProductType" />
-          <Property Name="Name" Type="String" Nullable="false" DefaultValue="string.Empty" />
-          <Property Name="Description" Type="String" Nullable="false" DefaultValue="string.Empty" />
-          <Property Name="ShortDescription" Type="String" Nullable="false" MaxLength="150" DefaultValue="string.Empty" />
+          <Property Name="Name" Type="String" Nullable="false" DefaultValue="" />
+          <Property Name="Description" Type="String" Nullable="false" DefaultValue="" />
+          <Property Name="ShortDescription" Type="String" Nullable="false" MaxLength="150" DefaultValue="" />
           <NavigationProperty Name="ProductImage" Relationship="DataModel.ProductProductImage" FromRole="Product" ToRole="ProductImage" />
         </EntityType>
         <EntityType Name="ProductType">
@@ -246,14 +246,14 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" DefaultValue="" />
         </EntityType>
         <EntityType Name="PriceType">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" DefaultValue="" />
         </EntityType>
         <EntityType Name="Prices">
           <Key>

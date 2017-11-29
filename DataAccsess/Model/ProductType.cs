@@ -14,6 +14,12 @@ namespace DataAccsess.Model
     
     public partial class ProductType
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public ProductType()
+        {
+            this.Name = "";
+        }
+    
         public int Id { get; set; }
         public string Name { get; set; }
     }
