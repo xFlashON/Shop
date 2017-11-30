@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -10,29 +11,34 @@ namespace DataAccsess.Repository
 {
     public class ProductTypeRepository:BaseRepository, IRepository<ProductType>
     {
-        public IEnumerable<ProductType> GetAll(Expression<Func<ProductType, bool>> func = null)
-        {
-            throw new NotImplementedException();
-        }
+        public ProductTypeRepository(DataModelContainer context) : base(context) { }
 
         public ProductType Get(int id)
         {
-            throw new NotImplementedException();
+            return context.ProductTypeSet.AsNoTracking().FirstOrDefault(x => x.Id == id);
+        }
+
+        public IEnumerable<ProductType> GetAll(Expression<Func<ProductType, bool>> func = null)
+        {
+            if (func is null)
+                return context.ProductTypeSet.AsNoTracking();
+
+            return context.ProductTypeSet.AsNoTracking().Where(func);
         }
 
         public void Create(ProductType item)
         {
-            throw new NotImplementedException();
-        }
-
-        public void Update(ProductType item)
-        {
-            throw new NotImplementedException();
+            context.ProductTypeSet.Add(item);
         }
 
         public void Delete(ProductType item)
         {
-            throw new NotImplementedException();
+            context.ProductTypeSet.Remove(item);
+        }
+
+        public void Update(ProductType item)
+        {
+            context.Entry(item).State = EntityState.Modified;
         }
     }
 }

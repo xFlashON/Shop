@@ -11,11 +11,6 @@ namespace DataAccsess.Repository
     {
         protected DataModelContainer context;
 
-        protected BaseRepository()
-        {
-            context = new DataModelContainer();
-        }
-
         protected BaseRepository(DataModelContainer context)
         {
             this.context = context;

@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using DataAccsess.Interfaces;
 using DataAccsess.Model;
 using DataAccsess.Repository;
 using Ninject.Modules;
+using Servises.BL;
+using Servises.Interfaces;
 
 namespace Shop.Utils
 {
@@ -12,8 +15,8 @@ namespace Shop.Utils
     {
         public override void Load()
         {
-            Bind<IRepository<Product>>().To<ProductRepository> ();
-            Bind<IRepository<ProductType>>().To<ProductTypeRepository>();
+            Bind<IUnitOfWork>().To<UnitOfWork> ();
+            Bind<IService>().To<Service>();
         }
     }
 }

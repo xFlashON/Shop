@@ -1,6 +1,7 @@
 ﻿using DataAccsess.Model;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,29 +11,34 @@ namespace DataAccsess.Repository
 {
     public class ProductRepository : BaseRepository, IRepository<Product>
     {
+        public ProductRepository(DataModelContainer context) : base(context) { }
+
         public Product Get(int id)
         {
-            throw new NotImplementedException();
+            return context.ProductSet.AsNoTracking().FirstOrDefault(x=>x.Id==id);
         }
 
         public IEnumerable<Product> GetAll(Expression<Func<Product, bool>> func = null)
         {
-            return context.ProductSet.ToList();
+            if (func is null)
+                return context.ProductSet.AsNoTracking().ToList();
+
+            return context.ProductSet.AsNoTracking().Where(func);
         }
 
         public void Create(Product item)
         {
-            throw new NotImplementedException();
+            context.ProductSet.Add(item);
         }
 
         public void Delete(Product item)
         {
-            throw new NotImplementedException();
+            context.ProductSet.Remove(item);
         }
 
          public void Update(Product item)
         {
-            throw new NotImplementedException();
+            context.Entry(item).State = EntityState.Modified;
         }
     }
 }
