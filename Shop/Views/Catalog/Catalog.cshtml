@@ -1,0 +1,58 @@
+﻿@using DataAccsess.Model
+@model Shop.Models.CatalogViewModel
+
+<div class="container" style="margin: 5px;">
+    <div class="col-md-3">
+        <ul class="nav nav-pills nav-stacked">
+            <li class="active"><a href="#">Каталог</a></li>
+            @if (Model != null)
+            {
+                foreach (var pType in @Model.ProductTypes)
+                {
+                    <li>@Html.ActionLink(pType.Name,"Catalog",new {groupId=pType.Id})</li>
+                }
+            }
+        </ul>
+    </div>
+    <div class="container col-md-9">
+
+        <div class="row">
+
+            @if(Model!=null)  {
+                int elementsPerRow = 3;
+
+                int count = 0;
+                foreach (var product in Model.Products)
+                {
+
+                    <div class="col-md-4">
+                        <div class="thumbnail">
+                            <a href="/w3images/nature.jpg">
+                                <img src="/w3images/nature.jpg" alt="@product.Name" style="width: 100%">
+                                <div class="caption">
+                                    <p>@product.ShortDescription</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    count++;
+
+                    if (count % elementsPerRow == 0)
+                    {
+                        @:</div><div class="row">
+                    }
+                }
+            }
+
+        </div>
+
+        <ul class="pager">
+            <li><a href="#">Назад</a></li>
+            <li><a href="#">Дальше</a></li>
+        </ul>
+
+    </div>
+
+</div>
+

@@ -8,9 +8,12 @@ namespace Servises.Interfaces
 {
     public interface IService
     {
-        IUnitOfWork DatabaseService { get; }
 
-        IEnumerable<Product> GetProducts();
+        IEnumerable<Product> GetAllProducts();
+
+        IEnumerable<Product> GetProducts(int? groupId, int? page);
+
+        Product GetProduct(int id);
 
         IEnumerable<ProductType> GetProductTypes();
 

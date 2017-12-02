@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataAccsess.Model
 {
-    class ModelInitializer:CreateDatabaseIfNotExists <DataModelContainer>
+    class ModelInitializer:DropCreateDatabaseAlways <DataModelContainer>
     {
         protected override void Seed(DataModelContainer context)
         {
@@ -20,6 +20,9 @@ namespace DataAccsess.Model
 
             context.ProductSet.AddRange(Enumerable.Range(1, 10)
                 .Select(n => new Product() {Name = $"Product {n}", ProductType = pType}));
+
+            context.ProductTypeSet.AddRange(Enumerable.Range(2, 5).Select(x => new ProductType() {Name = $"Type {x}"})
+                .ToList()); 
 
 
             context.SaveChanges();

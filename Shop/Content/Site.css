@@ -1,4 +1,13 @@
-﻿body {
+﻿html,body, .container {
+    height: 100%
+}
+
+.thumbnail {
+    min-height: 150px;
+} 
+
+
+body {
     padding-top: 50px;
     padding-bottom: 20px;
 }
@@ -22,3 +31,5 @@ select,
 textarea {
     max-width: 280px;
 }
+
+

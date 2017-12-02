@@ -17,11 +17,20 @@ namespace Servises.BL
         {
             databaseService = unitOfWork;
         }
-        public IUnitOfWork DatabaseService => databaseService;
 
         public ValidationException CreateOrder(Order order)
         {
             throw new NotImplementedException();
+        }
+
+        public IEnumerable<Product> GetAllProducts()
+        {
+            return databaseService.ProductRepository.GetAll();
+        }
+
+        public Product GetProduct(int id)
+        {
+            return databaseService.ProductRepository.Get(id);
         }
 
         public IEnumerable<Prices> GetProductPrices()
@@ -31,12 +40,24 @@ namespace Servises.BL
 
         public IEnumerable<Product> GetProducts()
         {
-            return DatabaseService.ProductRepository.GetAll();
+            return databaseService.ProductRepository.GetAll();
+        }
+
+        public IEnumerable<Product> GetProducts(int? groupId, int? page)
+        {
+            if (page == null)
+                page = 0;
+
+            page = Math.Max(0, (int)page);
+
+            int pageSize = 6;
+
+            return databaseService.ProductRepository.GetAll(x => (groupId == null || x.ProductType == null) || x.ProductType.Id == groupId).Skip((int)page * pageSize).Take(pageSize);
         }
 
         public IEnumerable<ProductType> GetProductTypes()
         {
-            throw new NotImplementedException();
+            return databaseService.ProductTypeRepository.GetAll();
         }
     }
 }
