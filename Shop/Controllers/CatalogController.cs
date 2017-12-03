@@ -41,16 +41,22 @@ namespace Shop.Controllers
             Mapper.Initialize(cfg=>
             {
                 cfg.CreateMap<Product, ProductViewModel>();
+                cfg.CreateMap<ProductType, ProductTypeViewModel>();
             });
 
             model.Products = Mapper.Map<IEnumerable<Product>, List<ProductViewModel>>(products);
 
-            Mapper.Reset();
-
-            Mapper.Initialize(cfg => cfg.CreateMap<ProductType, ProductTypeViewModel>());
-
             model.ProductTypes = Mapper.Map<IEnumerable<ProductType>, List<ProductTypeViewModel>>(productTypes);
 
+            if (groupId != null)
+            {
+                model.CurrentProductType = model.ProductTypes.FirstOrDefault(x=>x.Id==groupId);
+            }
+
+            if (page != null)
+            {
+                model.CurrentPage = (int) page;
+            }
 
             return View(model);
         }

@@ -48,8 +48,14 @@
         </div>
 
         <ul class="pager">
-            <li><a href="#">Назад</a></li>
-            <li><a href="#">Дальше</a></li>
+            @if (Model != null) { 
+                <li>@Html.ActionLink("Назад","Catalog",
+                   new{
+                       page = Math.Max(0, Model.CurrentPage - 1),
+                        groupId = Model.CurrentProductType?.Id
+                   })</li>
+                <li>@Html.ActionLink("Дальше","Catalog",new{page = Model.CurrentPage + 1, groupId = Model.CurrentProductType?.Id })</li>
+            }
         </ul>
 
     </div>
