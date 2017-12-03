@@ -23,6 +23,11 @@ namespace Servises.BL
             throw new NotImplementedException();
         }
 
+        public IUnitOfWork DatabaseService
+        {
+            get => databaseService;
+        }
+
         public IEnumerable<Product> GetAllProducts()
         {
             return databaseService.ProductRepository.GetAll();

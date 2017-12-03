@@ -24,6 +24,8 @@ namespace Shop
             var kernel = new StandardKernel(registrations);
             DependencyResolver.SetResolver(new NinjectDependencyResolver(kernel));
 
+            MapperConfigurations.Configure();
+
         }
     }
 }

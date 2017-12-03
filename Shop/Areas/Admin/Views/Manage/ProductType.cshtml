@@ -1,0 +1,13 @@
+﻿@model Shop.Models.ProductTypeViewModel
+
+@{
+    ViewBag.Title = "ProductType";
+}
+
+<h2>ProductType</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.EditorForModel(Model)
+}
+
