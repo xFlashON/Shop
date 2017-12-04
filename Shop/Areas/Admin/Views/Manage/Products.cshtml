@@ -1,7 +1,35 @@
-﻿
-@{
-    ViewBag.Title = "Products";
-}
+﻿@model IEnumerable<Shop.Models.ProductViewModel>
 
-<h2 class="bg-info">Номенклатура</h2>
+
+    @{
+        ViewBag.Title = "Номенклатура";
+    }
+
+    <h2 class="bg-info">Номенклатура</h2>
+
+<table class="table table-bordered">
+    <tr>
+        <th>Группа</th>
+        <th>Код</th>
+        <th>Наименование</th>
+        <th></th>
+    </tr>
+
+    @if (Model != null)
+    {
+        foreach (var product in Model)
+        {
+
+            <tr>
+                <td>@product.ProductType.Name</td>
+                <td>@product.Id</td>
+                <td>@product.Name</td>
+                <td>@Html.ActionLink("Изменить","EditProduct",new { productId = product.Id })</td>
+            </tr>
+
+        }
+    }
+
+
+</table> 
 

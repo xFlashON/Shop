@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using DataAccsess.Model;
+using DataAccsess.Interfaces;
 
 namespace DataAccsess.Repository
 {

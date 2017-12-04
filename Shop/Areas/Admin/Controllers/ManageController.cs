@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using AutoMapper;
 using Servises.Interfaces;
 using Shop.Models;
+using DataAccsess.Model;
 
 namespace Shop.Areas.Admin.Controllers
 {
@@ -33,7 +34,7 @@ namespace Shop.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult Products(int? productId)
         {
-            return View();
+            return View(Mapper.Map<IEnumerable<ProductViewModel>>(blService.DatabaseService.ProductRepository.GetAll().OrderBy(p=>p.ProductType.Id)));
         }
 
         [HttpGet]
@@ -50,6 +51,43 @@ namespace Shop.Areas.Admin.Controllers
                 return HttpNotFound();
 
             return View(Mapper.Map<ProductTypeViewModel>(model));
+        }
+
+
+        [HttpPost]
+        public ActionResult SaveProductType (ProductTypeViewModel model)
+        {
+            if(ModelState.IsValid)
+            {
+                if (model.Id != 0)
+                    blService.DatabaseService.ProductTypeRepository.Update(Mapper.Map<ProductType>(model));
+                else
+                    blService.DatabaseService.ProductTypeRepository.Create(Mapper.Map<ProductType>(model));
+
+                blService.DatabaseService.Save();
+
+                return RedirectToAction("ProductTypes");
+            }
+            else
+            {
+                return View("ProductType", model);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult EditProduct (int? productId)
+        {
+            if (productId == null)
+            {
+                return RedirectToAction("Index");
+            }
+
+            var model = blService.DatabaseService.ProductRepository.Get((int)productId);
+
+            if (model == null)
+                return HttpNotFound();
+
+            return View(Mapper.Map<ProductViewModel>(model));
         }
 
 

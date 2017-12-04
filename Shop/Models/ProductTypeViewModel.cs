@@ -9,7 +9,7 @@ namespace Shop.Models
 {
     public class ProductTypeViewModel
     {
-
+        [Display(Name = "Код")]
         public int Id { get; set; }
 
         [Display (Name = "Наименование")]

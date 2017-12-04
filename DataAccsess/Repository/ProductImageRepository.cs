@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using DataAccsess.Model;
+using DataAccsess.Interfaces;
 
 namespace DataAccsess.Repository
 {

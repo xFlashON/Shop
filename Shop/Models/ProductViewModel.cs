@@ -11,7 +11,8 @@ namespace Shop.Models
         public string Name { get; set; }
         public string Description { get; set; }
         public string ShortDescription { get; set; }
-        public decimal Price { get; set; } 
+        public decimal Price { get; set; }
+        public ProductTypeViewModel ProductType { get; set; }
 
     }
 }

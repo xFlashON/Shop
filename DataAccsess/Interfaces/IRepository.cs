@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccsess.Repository
+namespace DataAccsess.Interfaces
 {
     public interface IRepository <T>
     {

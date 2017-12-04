@@ -255,6 +255,7 @@
     <Content Include="Areas\Admin\Views\Manage\ProductTypes.cshtml" />
     <Content Include="Areas\Admin\Views\Manage\Products.cshtml" />
     <Content Include="Areas\Admin\Views\Manage\ProductType.cshtml" />
+    <Content Include="Areas\Admin\Views\Manage\EditProduct.cshtml" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
