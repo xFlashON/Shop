@@ -90,6 +90,18 @@ namespace Shop.Areas.Admin.Controllers
             return View(Mapper.Map<ProductViewModel>(model));
         }
 
+        [HttpPost]
+        public ActionResult SaveProduct(ProductViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+
+                return View("EditProduct", model);
+
+            }
+
+            return RedirectToAction("Products");
+        }
 
     }
 }
