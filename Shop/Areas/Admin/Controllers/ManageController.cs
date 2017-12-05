@@ -86,15 +86,21 @@ namespace Shop.Areas.Admin.Controllers
 
             if (model == null)
                 return HttpNotFound();
+            IEnumerable<SelectListItem> ProductTypes = blService.GetProductTypes()
+                .Select(t => new SelectListItem() {Text = t.Name, Value = t.Id.ToString()});
+
+            ViewBag.ProductTypesList = new SelectList(Mapper.Map<IEnumerable<ProductTypeViewModel>>(blService.GetProductTypes().ToList()),"Id","Name");
 
             return View(Mapper.Map<ProductViewModel>(model));
         }
 
         [HttpPost]
-        public ActionResult SaveProduct(ProductViewModel model)
+        public ActionResult SaveProduct(ProductViewModel model, HttpPostedFileBase TestFile)
         {
             if (!ModelState.IsValid)
             {
+
+                ViewBag.ProductTypesList = new SelectList(Mapper.Map<IEnumerable<ProductTypeViewModel>>(blService.GetProductTypes().ToList()), "Id", "Name");
 
                 return View("EditProduct", model);
 

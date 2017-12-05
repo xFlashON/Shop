@@ -16,15 +16,15 @@ namespace DataAccsess.Repository
 
         public Product Get(int id)
         {
-            return context.ProductSet.AsNoTracking().FirstOrDefault(x=>x.Id==id);
+            return context.ProductSet.AsNoTracking().Include("ProductType").FirstOrDefault(x=>x.Id==id);
         }
 
         public IEnumerable<Product> GetAll(Expression<Func<Product, bool>> func = null)
         {
             if (func is null)
-                return context.ProductSet.AsNoTracking().ToList();
+                return context.ProductSet.AsNoTracking().Include("ProductType").ToList();
 
-            return context.ProductSet.AsNoTracking().Where(func);
+            return context.ProductSet.AsNoTracking().Include("ProductType").Where(func);
         }
 
         public void Create(Product item)

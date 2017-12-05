@@ -14,12 +14,14 @@ namespace Shop.Models
         [Display(Name = "Наименование")]
         [Required (ErrorMessage = "Не заполнено наименование")]
         public string Name { get; set; }
-        [Required]
+
         public string Description { get; set; }
-        [Required]
+
         public string ShortDescription { get; set; }
         public decimal Price { get; set; }
         public ProductTypeViewModel ProductType { get; set; }
+
+        public HttpPostedFileBase TestFile { get; set; }
 
     }
 }

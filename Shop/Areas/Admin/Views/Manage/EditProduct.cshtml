@@ -8,7 +8,15 @@
 
 @using (Html.BeginForm("SaveProduct", "Manage", FormMethod.Post))
 {
-    @Html.EditorForModel();
+    @Html.EditorForModel()
+
+    @Html.DropDownListFor(m=>m.ProductType,ViewBag.ProductTypesList as SelectList) 
+
+    <div class="editor-field">
+        
+        <input type="file" name="TestFile" id="TestFile"/>
+
+    </div>
 
     <input type="submit" value="Сохранить"/>
 }
