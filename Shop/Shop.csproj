@@ -51,8 +51,8 @@
     <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
-    <Reference Include="AutoMapper, Version=6.2.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
-      <HintPath>..\packages\AutoMapper.6.2.1\lib\net45\AutoMapper.dll</HintPath>
+    <Reference Include="AutoMapper, Version=6.2.2.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.6.2.2\lib\net45\AutoMapper.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
@@ -320,9 +320,9 @@
     <Content Include="Scripts\jquery-3.2.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DataAccsess\DataAccsess.csproj">
-      <Project>{4c356da9-e03f-463d-ac86-63947d7f575e}</Project>
-      <Name>DataAccsess</Name>
+    <ProjectReference Include="..\DAL\DAL.csproj">
+      <Project>{d8594028-3cce-4958-a7fe-46f97d24a05b}</Project>
+      <Name>DAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\Servises\Servises.csproj">
       <Project>{e263ad3b-6d4f-41bd-a0dd-4c2969f99f30}</Project>

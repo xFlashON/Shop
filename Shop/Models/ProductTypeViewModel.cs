@@ -9,6 +9,7 @@ namespace Shop.Models
 {
     public class ProductTypeViewModel
     {
+        [HiddenInput(DisplayValue = true)]
         [Display(Name = "Код")]
         public int Id { get; set; }
 

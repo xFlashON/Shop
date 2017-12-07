@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using DataAccsess.Interfaces;
-using DataAccsess.Model;
+using DAL.Interfaces;
+using DAL.Model;
 using System.ComponentModel.DataAnnotations;
 
 namespace Servises.Interfaces
@@ -14,7 +14,7 @@ namespace Servises.Interfaces
         IEnumerable<Product> GetProducts(int? groupId, int? page);
         Product GetProduct(int id);
         IEnumerable<ProductType> GetProductTypes();
-        IEnumerable<Prices> GetProductPrices();
+        IEnumerable<Price> GetProductPrices();
         ValidationException CreateOrder(Order order);
 
     }

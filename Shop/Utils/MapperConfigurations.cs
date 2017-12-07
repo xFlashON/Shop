@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using AutoMapper;
-using DataAccsess.Model;
+using DAL.Model;
 using Shop.Models;
 
 namespace Shop.Utils

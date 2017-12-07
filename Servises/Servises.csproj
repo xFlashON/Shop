@@ -45,11 +45,10 @@
     <Compile Include="Interfaces\IService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="..\DataAccsess\DataAccsess.csproj">
-      <Project>{4C356DA9-E03F-463D-AC86-63947D7F575E}</Project>
-      <Name>DataAccsess</Name>
+    <ProjectReference Include="..\DAL\DAL.csproj">
+      <Project>{D8594028-3CCE-4958-A7FE-46F97D24A05B}</Project>
+      <Name>DAL</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

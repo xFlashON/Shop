@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DataAccsess.Interfaces;
-using DataAccsess.Model;
 using Servises.Interfaces;
+using DAL.Interfaces;
+using DAL.Model;
 
 namespace Servises.BL
 {
@@ -38,7 +38,7 @@ namespace Servises.BL
             return databaseService.ProductRepository.Get(id);
         }
 
-        public IEnumerable<Prices> GetProductPrices()
+        public IEnumerable<Price> GetProductPrices()
         {
             throw new NotImplementedException();
         }
@@ -57,12 +57,17 @@ namespace Servises.BL
 
             int pageSize = 6;
 
-            return databaseService.ProductRepository.GetAll(x => (groupId == null || x.ProductType == null) || x.ProductType.Id == groupId).Skip((int)page * pageSize).Take(pageSize);
+            return databaseService.ProductRepository.Get(x => (groupId == null || x.ProductType == null) || x.ProductType.Id == groupId).Skip((int)page * pageSize).Take(pageSize);
         }
 
         public IEnumerable<ProductType> GetProductTypes()
         {
             return databaseService.ProductTypeRepository.GetAll();
+        }
+
+        IEnumerable<Price> IService.GetProductPrices()
+        {
+            return databaseService.PriceRepository.GetAll();
         }
     }
 }

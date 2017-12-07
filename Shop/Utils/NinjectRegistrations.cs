@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using DataAccsess.Interfaces;
-using DataAccsess.Model;
-using DataAccsess.Repository;
+using DAL.Interfaces;
+using DAL.Model;
+using DAL.Repository;
 using Ninject.Modules;
 using Servises.BL;
 using Servises.Interfaces;

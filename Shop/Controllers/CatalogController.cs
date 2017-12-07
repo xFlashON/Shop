@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
-using DataAccsess.Model;
+using DAL.Model;
 using Servises.Interfaces;
 using Shop.Models;
 

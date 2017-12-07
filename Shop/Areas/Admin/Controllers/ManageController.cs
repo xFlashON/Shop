@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using AutoMapper;
 using Servises.Interfaces;
 using Shop.Models;
-using DataAccsess.Model;
+using DAL.Model;
 
 namespace Shop.Areas.Admin.Controllers
 {
@@ -86,8 +86,6 @@ namespace Shop.Areas.Admin.Controllers
 
             if (model == null)
                 return HttpNotFound();
-            IEnumerable<SelectListItem> ProductTypes = blService.GetProductTypes()
-                .Select(t => new SelectListItem() {Text = t.Name, Value = t.Id.ToString()});
 
             ViewBag.ProductTypesList = new SelectList(Mapper.Map<IEnumerable<ProductTypeViewModel>>(blService.GetProductTypes().ToList()),"Id","Name");
 
@@ -95,7 +93,7 @@ namespace Shop.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult SaveProduct(ProductViewModel model, HttpPostedFileBase TestFile)
+        public ActionResult SaveProduct(ProductViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -105,6 +103,9 @@ namespace Shop.Areas.Admin.Controllers
                 return View("EditProduct", model);
 
             }
+
+            blService.DatabaseService.ProductRepository.Update(Mapper.Map<Product>(model));
+            blService.DatabaseService.Save();
 
             return RedirectToAction("Products");
         }
