@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
@@ -22,7 +21,6 @@ namespace Shop.Models
 
         [Display(Name = "Короткое описание")]
         [Required(ErrorMessage = "Не заполнено короткое описание")]
-        [MinLength(10, ErrorMessage = "Минимальная длинна 10 символов")]
         public string ShortDescription { get; set; }
 
         [Required (ErrorMessage = "Не указан тип номенклатуры")]
@@ -30,6 +28,7 @@ namespace Shop.Models
 
         public ProductTypeViewModel ProductType { get; set; }
 
+        public int? ProductImageId { get; set; }
 
     }
 }

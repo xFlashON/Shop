@@ -23,8 +23,6 @@ namespace DAL.Repository
         public UnitOfWork()
         {
             context = new Container();
-
-            var t = context.ProductTypeSet.Count();
         }
 
         public IRepository<Product> ProductRepository => productRepository ?? (productRepository = new ProductRepository(context));

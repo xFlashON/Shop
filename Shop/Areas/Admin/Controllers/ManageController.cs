@@ -32,7 +32,7 @@ namespace Shop.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public ActionResult Products(int? productId)
+        public ActionResult Products()
         {
             return View(Mapper.Map<IEnumerable<ProductViewModel>>(blService.DatabaseService.ProductRepository.GetAll().OrderBy(p=>p.ProductType.Id)));
         }
@@ -108,6 +108,15 @@ namespace Shop.Areas.Admin.Controllers
             blService.DatabaseService.Save();
 
             return RedirectToAction("Products");
+        }
+
+        [HttpGet]
+        public ActionResult LoadImage(int? productId)
+        {
+            if (productId == null)
+                return RedirectToAction("Products");
+
+            return View();
         }
 
     }

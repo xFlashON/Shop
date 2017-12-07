@@ -224,6 +224,7 @@
     <Compile Include="Models\CatalogViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ProductImageViewModel.cs" />
     <Compile Include="Models\ProductTypeViewModel.cs" />
     <Compile Include="Models\ProductViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -258,6 +259,7 @@
     <Content Include="Areas\Admin\Views\Manage\Products.cshtml" />
     <Content Include="Areas\Admin\Views\Manage\ProductType.cshtml" />
     <Content Include="Areas\Admin\Views\Manage\EditProduct.cshtml" />
+    <Content Include="Areas\Admin\Views\Manage\LoadImage.cshtml" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -321,7 +323,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DAL\DAL.csproj">
-      <Project>{d8594028-3cce-4958-a7fe-46f97d24a05b}</Project>
+      <Project>{2e4a31fc-ba64-4b08-8ce7-ab27a6a21d2d}</Project>
       <Name>DAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\Servises\Servises.csproj">

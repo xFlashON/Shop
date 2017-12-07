@@ -1,19 +1,17 @@
-﻿using DAL.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
+using System.Linq;
+using System.Web;
 
-namespace DAL.Model
+namespace Shop.Models
 {
-    public class ProductImage : IEntity
+    public class ProductImageViewModel
     {
-        [Key]
         public int Id { get; set; }
         public byte[] ImageData { get; set; }
-        [MaxLength(50)]
         public string ImageMimeType { get; set; }
-
+        [Required]
+        public int ProductId { get; set; }
     }
 }
-
