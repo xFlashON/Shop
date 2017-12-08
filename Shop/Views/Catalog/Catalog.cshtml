@@ -23,17 +23,25 @@
 
         <div class="row">
 
-            @if(Model!=null)  {
+            @if (Model != null)
+            {
                 int elementsPerRow = 3;
 
                 int count = 0;
                 foreach (var product in Model.Products)
                 {
 
+                var src = "#";
+
+                if (product.ProductImageId != 0)
+                {
+                    src = Url.Action("GetImage", "Manage", new { Area = "Admin", imageId = product.ProductImageId });
+                }
+
                     <div class="col-md-4">
                         <div class="thumbnail">
-                            <a href="/w3images/nature.jpg">
-                                <img src="/w3images/nature.jpg" alt="@product.Name" style="width: 100%">
+                            <a href=@src target="_blank">
+                                <img src=@src alt="@product.Name">
                                 <div class="caption">
                                     <p>@product.ShortDescription</p>
                                 </div>

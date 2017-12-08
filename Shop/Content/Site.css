@@ -4,8 +4,13 @@
 
 .thumbnail {
     min-height: 150px;
-} 
+}
 
+    .thumbnail img {
+        height: 200px !important;
+        width: 200px !important;
+        background-color: aliceblue
+    }
 
 body {
     padding-top: 50px;

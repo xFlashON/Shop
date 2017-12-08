@@ -17,5 +17,9 @@ namespace Servises.Interfaces
         IEnumerable<Price> GetProductPrices();
         ValidationException CreateOrder(Order order);
 
+        void SaveImage(int productId, byte[] imageData, string mimoType);
+
+        ProductImage getImage(int imageId);
+
     }
 }

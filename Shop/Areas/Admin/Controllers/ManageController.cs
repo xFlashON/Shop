@@ -7,6 +7,7 @@ using AutoMapper;
 using Servises.Interfaces;
 using Shop.Models;
 using DAL.Model;
+using System.IO;
 
 namespace Shop.Areas.Admin.Controllers
 {
@@ -116,8 +117,44 @@ namespace Shop.Areas.Admin.Controllers
             if (productId == null)
                 return RedirectToAction("Products");
 
-            return View();
+            var product = blService.GetProduct((int)productId);
+
+            return View(new ProductImageViewModel() { Id = product.ProductImageId??0, ProductId = product.Id});
         }
 
+        [HttpPost]
+        public ActionResult SaveImage (int ProductId, HttpPostedFileBase file)
+        {
+
+            if (file != null)
+            {
+
+                using(BinaryReader reader = new BinaryReader(file.InputStream))
+                {
+                    byte[] imageData = reader.ReadBytes(file.ContentLength);
+
+                    blService.SaveImage(ProductId, imageData, file.ContentType);
+                }
+
+            }
+
+            return RedirectToAction("Products");
+        }
+
+        [HttpGet]
+        public ActionResult GetImage (int? imageId)
+        {
+
+            if (imageId == null)
+                return HttpNotFound();
+
+            var image = blService.getImage((int) imageId);
+
+            if (image == null)
+                return null;
+
+            return File(image.ImageData, image.ImageMimeType);
+
+        }
     }
 }

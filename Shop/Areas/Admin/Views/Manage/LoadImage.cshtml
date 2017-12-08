@@ -2,7 +2,46 @@
 
 @{
     ViewBag.Title = "Загрузка изображения";
+    var src = "#";
 }
 
-<h2>LoadImage</h2>
+@if (Model != null && Model.Id != 0)
+{
+    src = Url.Action("GetImage", "Manage", new { imageId = Model.Id});
+}
 
+<img id="image" src=@src alt="Предпросмотр" style="max-height:400px; background-color:gray;" />
+
+@using (Html.BeginForm("SaveImage", "Manage",FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="panel panel-default panel-body">
+
+        @Html.HiddenFor(m => m.ProductId)
+
+        <input type="file" name="file" id="imgInput" value="Выбрать изображение" />
+
+        <input type="submit" value="Сохранить" />
+
+    </div>
+
+}
+
+<script>
+    function readURL(input) {
+
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#image').attr('src', e.target.result);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+
+    $("#imgInput").change(function () {
+        readURL(this);
+    });
+</script>

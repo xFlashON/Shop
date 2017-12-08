@@ -69,5 +69,43 @@ namespace Servises.BL
         {
             return databaseService.PriceRepository.GetAll();
         }
+
+        public void SaveImage(int productId, byte[] imageData, string mimoType)
+        {
+
+            var product = databaseService.ProductRepository.Get(productId);
+
+            if(product != null)
+            {
+                ProductImage image = product.ProductImage ?? new ProductImage();
+
+                image.ImageData = imageData;
+                image.ImageMimeType = mimoType;
+
+                if (image.Id == 0)
+                {
+                    DatabaseService.ProductImageRepository.Create(image);
+                    DatabaseService.Save();                    
+                }
+                else
+                {
+                    DatabaseService.ProductImageRepository.Update(image);
+                }
+
+                product.ProductImageId = image.Id;
+                product.ProductImage = image;
+
+                DatabaseService.ProductRepository.Update(product);
+
+                DatabaseService.Save();
+
+            }
+
+        }
+
+        public ProductImage getImage(int imageId)
+        {
+            return DatabaseService.ProductImageRepository.Get(imageId);
+        }
     }
 }

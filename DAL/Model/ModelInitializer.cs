@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DAL.Model
 {
-    class ModelInitializer:DropCreateDatabaseAlways <Container>
+    class ModelInitializer:DropCreateDatabaseIfModelChanges <Container>
     {
         protected override void Seed(Container context)
         {
