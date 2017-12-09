@@ -141,20 +141,6 @@ namespace Shop.Areas.Admin.Controllers
             return RedirectToAction("Products");
         }
 
-        [HttpGet]
-        public ActionResult GetImage (int? imageId)
-        {
-
-            if (imageId == null)
-                return HttpNotFound();
-
-            var image = blService.getImage((int) imageId);
-
-            if (image == null)
-                return null;
-
-            return File(image.ImageData, image.ImageMimeType);
-
-        }
+       
     }
 }

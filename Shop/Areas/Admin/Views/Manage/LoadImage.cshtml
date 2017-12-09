@@ -7,7 +7,7 @@
 
 @if (Model != null && Model.Id != 0)
 {
-    src = Url.Action("GetImage", "Manage", new { imageId = Model.Id});
+    src = Url.Action("GetImage", "Service", new { Area = "", imageId = Model.Id});
 }
 
 <img id="image" src=@src alt="Предпросмотр" style="max-height:400px; background-color:gray;" />
