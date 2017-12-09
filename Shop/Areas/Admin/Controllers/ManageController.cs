@@ -11,6 +11,8 @@ using System.IO;
 
 namespace Shop.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "admin")]
+    [ValidateAntiForgeryToken]
     public class ManageController : Controller
     {
         private IService blService;
@@ -21,7 +23,7 @@ namespace Shop.Areas.Admin.Controllers
         }
 
         // GET: Admin/Manage
-        public ActionResult Index()
+        public ActionResult References()
         {
             return View();
         }

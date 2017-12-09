@@ -25,7 +25,7 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Каталог", "Catalog", new { area = "", controller = "Catalog" })</li>
-                    <li>@Html.ActionLink("Админка","Index", new{area="Admin", controller = "Manage"})</li>
+                    <li>@Html.ActionLink("Админка", "References", new{area="Admin", controller = "Manage"})</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

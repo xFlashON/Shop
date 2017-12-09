@@ -8,6 +8,7 @@ using System.Web.Routing;
 using Ninject;
 using Ninject.Web.Mvc;
 using Shop.Utils;
+using System.Data.Entity;
 
 namespace Shop
 {
@@ -26,6 +27,8 @@ namespace Shop
             DependencyResolver.SetResolver(new NinjectDependencyResolver(kernel));
 
             MapperConfigurations.Configure();
+
+            Database.SetInitializer(new IdentityModelInitializer());
 
         }
     }
