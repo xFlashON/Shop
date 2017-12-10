@@ -103,9 +103,19 @@ namespace Servises.BL
 
         }
 
-        public ProductImage getImage(int imageId)
+        public ProductImage GetImage(int imageId)
         {
             return DatabaseService.ProductImageRepository.Get(imageId);
+        }
+
+        public IEnumerable<News> GetNews(int? page)
+        {
+            int pageSize = 5;
+
+            if (page == null)
+                page = 0;
+
+            return databaseService.NewsRepository.GetAll().OrderByDescending (x=>x.Date).Skip((int)page * pageSize).Take(pageSize);
         }
     }
 }

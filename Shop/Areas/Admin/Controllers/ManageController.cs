@@ -11,8 +11,8 @@ using System.IO;
 
 namespace Shop.Areas.Admin.Controllers
 {
-    [Authorize(Roles = "admin")]
-    [ValidateAntiForgeryToken]
+    //[Authorize(Roles = "admin")]
+    //[ValidateAntiForgeryToken]
     public class ManageController : Controller
     {
         private IService blService;
@@ -22,7 +22,7 @@ namespace Shop.Areas.Admin.Controllers
             blService = service;
         }
 
-        // GET: Admin/Manage
+        [HttpGet]
         public ActionResult References()
         {
             return View();
@@ -143,6 +143,14 @@ namespace Shop.Areas.Admin.Controllers
             return RedirectToAction("Products");
         }
 
-       
+        [HttpGet]
+        public ActionResult News(int? page)
+        {
+
+
+
+            return View();
+        }
+
     }
 }

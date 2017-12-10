@@ -23,7 +23,7 @@ namespace Shop.Controllers
             if (imageId == null)
                 return HttpNotFound();
 
-            var image = blService.getImage((int)imageId);
+            var image = blService.GetImage((int)imageId);
 
             if (image == null)
                 return null;
