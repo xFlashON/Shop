@@ -12,7 +12,6 @@ using System.IO;
 namespace Shop.Areas.Admin.Controllers
 {
     //[Authorize(Roles = "admin")]
-    //[ValidateAntiForgeryToken]
     public class ManageController : Controller
     {
         private IService blService;
@@ -58,6 +57,7 @@ namespace Shop.Areas.Admin.Controllers
 
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult SaveProductType (ProductTypeViewModel model)
         {
             if(ModelState.IsValid)
@@ -96,6 +96,7 @@ namespace Shop.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult SaveProduct(ProductViewModel model)
         {
             if (!ModelState.IsValid)
@@ -125,6 +126,7 @@ namespace Shop.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult SaveImage (int ProductId, HttpPostedFileBase file)
         {
 
@@ -147,9 +149,30 @@ namespace Shop.Areas.Admin.Controllers
         public ActionResult News(int? page)
         {
 
+            var model = new NewsListViewModel();
 
+            model.NewsList = Mapper.Map<IEnumerable<NewsViewModel>>( blService.GetNews(page));
+            model.CurrentPage = page ?? 0;
 
-            return View();
+            return View(model);
+        }
+
+        [HttpGet]
+        public ActionResult EditNews(int id)
+        {
+            return View(Mapper.Map<NewsViewModel>(blService.GetNews(id)));
+        }
+
+        [HttpGet]
+        public ActionResult DeleteNews(int id)
+        {
+            return RedirectToAction("News");
+        }
+
+        [HttpGet]
+        public ActionResult AddNews(int id)
+        {
+            return View(new NewsViewModel());
         }
 
     }

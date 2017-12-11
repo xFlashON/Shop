@@ -8,6 +8,8 @@
 
 @using (Html.BeginForm("SaveProductType", "Manage", FormMethod.Post))
 {
+    @Html.AntiForgeryToken()
+    
     <div class="form-group">
         <div class="col-xs-2">
             @Html.DisplayNameFor(m => m.Id)

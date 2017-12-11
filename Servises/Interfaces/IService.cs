@@ -19,6 +19,7 @@ namespace Servises.Interfaces
         void SaveImage(int productId, byte[] imageData, string mimoType);
         ProductImage GetImage(int imageId);
         IEnumerable<News> GetNews(int? page);
+        News GetNews(int newsId);
 
     }
 }

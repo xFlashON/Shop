@@ -1,0 +1,52 @@
+﻿@model Shop.Models.NewsListViewModel
+
+@{
+    ViewBag.Title = "Новости";
+}
+
+<h2>Новости</h2>
+
+@if (Model != null)
+{
+    <table class="table table-bordered">
+
+        <tr>
+            <th>Дата</th>
+            <th>Заголовок</th>
+            <th></th>
+            <th></th>
+        </tr>
+
+        @foreach (var news in Model.NewsList)
+        {
+
+            <tr>
+                <td>@news.Date</td>
+                <td>@news.Title</td>
+                <td>@Html.ActionLink("Изменить", "EditNews", new { id = @news.Id })</td>
+                <td>@Html.ActionLink("Удалить", "DeleteNews", new { id = @news.Id })</td>
+            </tr>
+
+        }
+
+    </table>
+
+    <ul class="pager">
+
+        <li>
+            @Html.ActionLink("Назад", "News",
+                new
+                {
+                    page = Math.Max(0, Model.CurrentPage - 1),
+                })
+        </li>
+        <li>
+            @Html.ActionLink("Дальше", "News", new {page = Model.CurrentPage + 1})
+        </li>
+
+    </ul>
+
+    <input type="button" value="Добавить новость" onclick="location.href='@Url.Action("AddNews")'"/>
+
+}
+

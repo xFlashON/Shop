@@ -224,6 +224,8 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CatalogViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\NewsListViewModel.cs" />
+    <Compile Include="Models\NewsViewModel.cs" />
     <Compile Include="Models\ProductImageViewModel.cs" />
     <Compile Include="Models\ProductTypeViewModel.cs" />
     <Compile Include="Models\ProductViewModel.cs" />
@@ -261,6 +263,10 @@
     <Content Include="Areas\Admin\Views\Manage\ProductType.cshtml" />
     <Content Include="Areas\Admin\Views\Manage\EditProduct.cshtml" />
     <Content Include="Areas\Admin\Views\Manage\LoadImage.cshtml" />
+    <Content Include="Areas\Admin\Views\Manage\News.cshtml" />
+    <Content Include="Areas\Admin\Views\Manage\EditNews.cshtml" />
+    <Content Include="Areas\Admin\Views\Manage\DeleteNews.cshtml" />
+    <Content Include="Areas\Admin\Views\Manage\AddNews.cshtml" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

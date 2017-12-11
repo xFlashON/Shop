@@ -117,5 +117,10 @@ namespace Servises.BL
 
             return databaseService.NewsRepository.GetAll().OrderByDescending (x=>x.Date).Skip((int)page * pageSize).Take(pageSize);
         }
+
+        public News GetNews(int newsId)
+        {
+            return databaseService.NewsRepository.Get(newsId);
+        }
     }
 }
