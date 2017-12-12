@@ -20,6 +20,7 @@ namespace Servises.Interfaces
         ProductImage GetImage(int imageId);
         IEnumerable<News> GetNews(int? page);
         News GetNews(int newsId);
+        void SaveNews(News news);
 
     }
 }

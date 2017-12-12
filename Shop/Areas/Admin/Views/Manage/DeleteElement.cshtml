@@ -1,0 +1,18 @@
+﻿@model Shop.Areas.Admin.Models.DeleteConfirmationViewModel
+
+@{
+    ViewBag.Title = "Вопрос";
+}
+
+
+@using (Html.BeginForm(Model.ActionName, "Manage", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.DeletedId);
+    @Html.HiddenFor(m => m.ActionName);
+    <h2>@Model.Alert</h2>
+    <br />
+    <input type="submit" value="Удалить" />
+    <input type="button" value="Отменить" onclick="history.back();" />
+
+}

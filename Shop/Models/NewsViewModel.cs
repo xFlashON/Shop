@@ -9,6 +9,7 @@ namespace Shop.Models
 {
     public class NewsViewModel
     {
+        [HiddenInput(DisplayValue = false)]
         public int Id { get; set; }
         [Display(Name = "Дата")]
         [Required]
@@ -18,8 +19,11 @@ namespace Shop.Models
         [Display(Name = "Заголовок")]
         [Required]
         public string Title { get; set; }
+
         [Display(Name = "Содержание")]
         [AllowHtml]
+        [UIHint("MultilineText")]
+        [Required]
         public string Content { get; set; }
 
     }

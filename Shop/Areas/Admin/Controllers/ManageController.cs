@@ -8,6 +8,7 @@ using Servises.Interfaces;
 using Shop.Models;
 using DAL.Model;
 using System.IO;
+using Shop.Areas.Admin.Models;
 
 namespace Shop.Areas.Admin.Controllers
 {
@@ -166,13 +167,35 @@ namespace Shop.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult DeleteNews(int id)
         {
+            return View("DeleteElement", new DeleteConfirmationViewModel(){DeletedId = id, ActionName = "DeleteNews", Alert = "Подтвердите удаление новости"});
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteNews (DeleteConfirmationViewModel model)
+        {
             return RedirectToAction("News");
         }
 
         [HttpGet]
-        public ActionResult AddNews(int id)
+        public ActionResult AddNews()
         {
-            return View(new NewsViewModel());
+            return View(new NewsViewModel() { Date=DateTime.Now});
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SaveNews(NewsViewModel model)
+        {
+
+            if (!ModelState.IsValid)
+            {
+                return View("AddNews", model);
+            }
+
+            blService.SaveNews(Mapper.Map<News>(model));
+
+            return RedirectToAction("News");
         }
 
     }

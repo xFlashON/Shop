@@ -122,5 +122,15 @@ namespace Servises.BL
         {
             return databaseService.NewsRepository.Get(newsId);
         }
+
+        public void SaveNews(News news)
+        {
+            if (news.Id == 0)
+                databaseService.NewsRepository.Create(news);
+            else
+                databaseService.NewsRepository.Update(news);
+
+            databaseService.Save();
+        }
     }
 }

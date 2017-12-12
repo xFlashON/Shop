@@ -213,6 +213,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\ManageController.cs" />
+    <Compile Include="Areas\Admin\Models\DeleteConfirmationViewModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\CatalogController.cs" />
@@ -265,8 +266,8 @@
     <Content Include="Areas\Admin\Views\Manage\LoadImage.cshtml" />
     <Content Include="Areas\Admin\Views\Manage\News.cshtml" />
     <Content Include="Areas\Admin\Views\Manage\EditNews.cshtml" />
-    <Content Include="Areas\Admin\Views\Manage\DeleteNews.cshtml" />
     <Content Include="Areas\Admin\Views\Manage\AddNews.cshtml" />
+    <Content Include="Areas\Admin\Views\Manage\DeleteElement.cshtml" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -322,7 +323,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
     <Folder Include="Views\Service\" />
   </ItemGroup>

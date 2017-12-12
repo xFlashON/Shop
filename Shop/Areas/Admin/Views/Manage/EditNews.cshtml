@@ -1,8 +1,19 @@
 ﻿@model Shop.Models.NewsViewModel
 
 @{
-    ViewBag.Title = "EditNews";
+    ViewBag.Title = "Редактирование новости";
 }
 
-<h2>EditNews</h2>
+@using (Html.BeginForm("SaveNews", "Manage", FormMethod.Post))
+{
 
+    <div class="panel panel-body">
+
+        @Html.AntiForgeryToken()
+
+        @Html.EditorForModel()
+
+        <input type="submit" value="Сохранить" />
+
+    </div>
+}
