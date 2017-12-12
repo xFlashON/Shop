@@ -26,7 +26,7 @@ namespace Shop.Controllers
             var image = blService.GetImage((int)imageId);
 
             if (image == null)
-                return null;
+                return HttpNotFound();
 
             return File(image.ImageData, image.ImageMimeType);
 

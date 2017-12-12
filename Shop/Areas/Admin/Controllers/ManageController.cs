@@ -35,9 +35,15 @@ namespace Shop.Areas.Admin.Controllers
         }
 
         [HttpGet]
+        public ActionResult PriceTypes()
+        {
+            return View(Mapper.Map<IEnumerable<PriceTypeViewModel>>(blService.GetPriceTypes()));
+        }
+
+        [HttpGet]
         public ActionResult Products()
         {
-            return View(Mapper.Map<IEnumerable<ProductViewModel>>(blService.DatabaseService.ProductRepository.GetAll().OrderBy(p=>p.ProductType.Id)));
+            return View(Mapper.Map<IEnumerable<ProductViewModel>>(blService.DatabaseService.ProductRepository.GetAll().OrderBy(p => p.ProductType.Id)));
         }
 
         [HttpGet]
@@ -57,11 +63,25 @@ namespace Shop.Areas.Admin.Controllers
         }
 
 
+        [HttpGet]
+        public ActionResult AddProductType()
+        {
+
+            return View("ProductType", new ProductTypeViewModel());
+        }
+
+        [HttpGet]
+        public ActionResult AddPriceType()
+        {
+
+            return View("PriceType", new PriceTypeViewModel());
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult SaveProductType (ProductTypeViewModel model)
+        public ActionResult SaveProductType(ProductTypeViewModel model)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 if (model.Id != 0)
                     blService.DatabaseService.ProductTypeRepository.Update(Mapper.Map<ProductType>(model));
@@ -79,7 +99,24 @@ namespace Shop.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public ActionResult EditProduct (int? productId)
+        public ActionResult PriceType(int? Id)
+        {
+            if (Id == null)
+            {
+                return RedirectToAction("PriceTypes");
+            }
+
+            var model = blService.DatabaseService.PriceTypeRepository.Get((int)Id);
+
+            if (model == null)
+                return HttpNotFound();
+
+            return View(Mapper.Map<PriceTypeViewModel>(model));
+        }
+
+
+        [HttpGet]
+        public ActionResult EditProduct(int? productId)
         {
             if (productId == null)
             {
@@ -91,9 +128,40 @@ namespace Shop.Areas.Admin.Controllers
             if (model == null)
                 return HttpNotFound();
 
-            ViewBag.ProductTypesList = new SelectList(Mapper.Map<IEnumerable<ProductTypeViewModel>>(blService.GetProductTypes().ToList()),"Id","Name");
+            ViewBag.ProductTypesList = new SelectList(Mapper.Map<IEnumerable<ProductTypeViewModel>>(blService.GetProductTypes().ToList()), "Id", "Name");
 
             return View(Mapper.Map<ProductViewModel>(model));
+        }
+
+        [HttpGet]
+        public ActionResult AddProduct()
+        {
+
+            ViewBag.ProductTypesList = new SelectList(Mapper.Map<IEnumerable<ProductTypeViewModel>>(blService.GetProductTypes().ToList()), "Id", "Name");
+
+            return View("EditProduct", new ProductViewModel());
+
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SavePriceType(PriceTypeViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                if (model.Id != 0)
+                    blService.DatabaseService.PriceTypeRepository.Update(Mapper.Map<PriceType>(model));
+                else
+                    blService.DatabaseService.PriceTypeRepository.Create(Mapper.Map<PriceType>(model));
+
+                blService.DatabaseService.Save();
+
+                return RedirectToAction("PriceTypes");
+            }
+            else
+            {
+                return View("PriceType", model);
+            }
         }
 
         [HttpPost]
@@ -109,7 +177,13 @@ namespace Shop.Areas.Admin.Controllers
 
             }
 
-            blService.DatabaseService.ProductRepository.Update(Mapper.Map<Product>(model));
+            var product = Mapper.Map<Product>(model);
+
+            if (product.Id==0)
+                blService.DatabaseService.ProductRepository.Create(product);
+            else
+                blService.DatabaseService.ProductRepository.Update(product);
+
             blService.DatabaseService.Save();
 
             return RedirectToAction("Products");
@@ -123,18 +197,18 @@ namespace Shop.Areas.Admin.Controllers
 
             var product = blService.GetProduct((int)productId);
 
-            return View(new ProductImageViewModel() { Id = product.ProductImageId??0, ProductId = product.Id});
+            return View(new ProductImageViewModel() { Id = product.ProductImageId ?? 0, ProductId = product.Id });
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult SaveImage (int ProductId, HttpPostedFileBase file)
+        public ActionResult SaveImage(int ProductId, HttpPostedFileBase file)
         {
 
             if (file != null)
             {
 
-                using(BinaryReader reader = new BinaryReader(file.InputStream))
+                using (BinaryReader reader = new BinaryReader(file.InputStream))
                 {
                     byte[] imageData = reader.ReadBytes(file.ContentLength);
 
@@ -152,7 +226,7 @@ namespace Shop.Areas.Admin.Controllers
 
             var model = new NewsListViewModel();
 
-            model.NewsList = Mapper.Map<IEnumerable<NewsViewModel>>( blService.GetNews(page));
+            model.NewsList = Mapper.Map<IEnumerable<NewsViewModel>>(blService.GetNews(page));
             model.CurrentPage = page ?? 0;
 
             return View(model);
@@ -167,20 +241,32 @@ namespace Shop.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult DeleteNews(int id)
         {
-            return View("DeleteElement", new DeleteConfirmationViewModel(){DeletedId = id, ActionName = "DeleteNews", Alert = "Подтвердите удаление новости"});
+            return View("DeleteElement", new DeleteConfirmationViewModel() { DeletedId = id, ActionName = "DeleteNews", Alert = "Подтвердите удаление новости" });
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteNews (DeleteConfirmationViewModel model)
+        public ActionResult DeleteNews(DeleteConfirmationViewModel model)
         {
+            if (model.DeletedId != 0)
+
+            {
+                var deletedItem = blService.DatabaseService.NewsRepository.Get(model.DeletedId);
+                if (deletedItem != null)
+                {
+                    blService.DatabaseService.NewsRepository.Delete(deletedItem);
+                    blService.DatabaseService.Save();
+                }
+            }
+
+
             return RedirectToAction("News");
         }
 
         [HttpGet]
         public ActionResult AddNews()
         {
-            return View(new NewsViewModel() { Date=DateTime.Now});
+            return View(new NewsViewModel() { Date = DateTime.Now });
         }
 
         [HttpPost]

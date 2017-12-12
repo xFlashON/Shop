@@ -22,6 +22,7 @@ namespace Shop.Models
 
         [Display(Name = "Содержание")]
         [AllowHtml]
+        // ReSharper disable once Mvc.TemplateNotResolved
         [UIHint("MultilineText")]
         [Required]
         public string Content { get; set; }

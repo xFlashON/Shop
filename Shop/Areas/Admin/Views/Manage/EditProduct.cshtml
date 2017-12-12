@@ -9,6 +9,8 @@
 @using (Html.BeginForm("SaveProduct", "Manage", FormMethod.Post))
 {
 
+    @Html.AntiForgeryToken()
+
     <div class="panel panel-default panel-body">
 
         @Html.HiddenFor(m=>m.ProductImageId)

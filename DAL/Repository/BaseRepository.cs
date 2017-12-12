@@ -26,7 +26,7 @@ namespace DAL.Repository
 
         public virtual void Delete(T item)
         {
-            context.Set<T>().Remove(item);
+            context.Entry(item).State = EntityState.Deleted;
         }
 
         public virtual IEnumerable<T> Get(Expression<Func<T, bool>> func)

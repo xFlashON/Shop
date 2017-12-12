@@ -14,6 +14,7 @@ namespace Servises.Interfaces
         IEnumerable<Product> GetProducts(int? groupId, int? page);
         Product GetProduct(int id);
         IEnumerable<ProductType> GetProductTypes();
+        IEnumerable<PriceType> GetPriceTypes();
         IEnumerable<Price> GetProductPrices();
         ValidationException CreateOrder(Order order);
         void SaveImage(int productId, byte[] imageData, string mimoType);

@@ -1,0 +1,30 @@
+﻿@model Shop.Models.PriceTypeViewModel
+
+@{
+    ViewBag.Title = "PriceType";
+}
+
+<h2>Тип цен</h2>
+
+@using (Html.BeginForm("SavePriceType", "Manage", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-group">
+        <div class="col-xs-2">
+            @Html.DisplayNameFor(m => m.Id)
+        </div>
+        <input type="text" id="Id" name="Id" required readonly value="@Model.Id" />
+        @*@Html.EditorFor(m => m.Id)*@
+    </div>
+    
+    <div class="form-group">
+        <div class="col-xs-2">
+            @Html.DisplayNameFor(m => m.Name)
+        </div>
+        @Html.EditorFor(m => m.Name)
+        @Html.ValidationMessageFor(m => m.Name)
+    </div>
+    
+    <input type="submit" value="Сохранить" />
+}

@@ -132,5 +132,10 @@ namespace Servises.BL
 
             databaseService.Save();
         }
+
+        public IEnumerable<PriceType> GetPriceTypes()
+        {
+            return DatabaseService.PriceTypeRepository.GetAll();
+        }
     }
 }
