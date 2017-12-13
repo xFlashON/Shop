@@ -8,6 +8,7 @@ using Servises.Interfaces;
 using Shop.Models;
 using DAL.Model;
 using System.IO;
+using Newtonsoft.Json;
 using Shop.Areas.Admin.Models;
 
 namespace Shop.Areas.Admin.Controllers
@@ -282,6 +283,21 @@ namespace Shop.Areas.Admin.Controllers
             blService.SaveNews(Mapper.Map<News>(model));
 
             return RedirectToAction("News");
+        }
+
+        [HttpGet]
+        public ActionResult Prices()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public string GetPrices()
+        {
+          var priceList =  blService.DatabaseService.ProductRepository.GetAll()
+                .Select(p => new /*Price()*/ {Id = p.Id/*, Product = p, CurrentPrice = p.Id * 10, ProductId = p.Id*/}).ToList();
+
+            return  JsonConvert.SerializeObject(priceList);
         }
 
     }

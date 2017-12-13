@@ -314,6 +314,7 @@
     <Content Include="Areas\Admin\Views\Manage\DeleteElement.cshtml" />
     <Content Include="Areas\Admin\Views\Manage\PriceTypes.cshtml" />
     <Content Include="Areas\Admin\Views\Manage\PriceType.cshtml" />
+    <Content Include="Areas\Admin\Views\Manage\Prices.cshtml" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
