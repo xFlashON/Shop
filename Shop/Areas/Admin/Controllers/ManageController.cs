@@ -8,6 +8,7 @@ using Servises.Interfaces;
 using Shop.Models;
 using DAL.Model;
 using System.IO;
+using System.Web.Helpers;
 using Newtonsoft.Json;
 using Shop.Areas.Admin.Models;
 
@@ -292,12 +293,12 @@ namespace Shop.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public string GetPrices()
+        public JsonResult GetPrices(int page, int rows)
         {
-          var priceList =  blService.DatabaseService.ProductRepository.GetAll()
-                .Select(p => new /*Price()*/ {Id = p.Id/*, Product = p, CurrentPrice = p.Id * 10, ProductId = p.Id*/}).ToList();
 
-            return  JsonConvert.SerializeObject(priceList);
+            var priceList = blService.GetProductPrices(page, rows, null);
+
+            return Json(priceList,JsonRequestBehavior.AllowGet);
         }
 
     }

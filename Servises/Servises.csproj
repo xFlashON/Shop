@@ -43,6 +43,8 @@
   <ItemGroup>
     <Compile Include="BL\Service.cs" />
     <Compile Include="Interfaces\IService.cs" />
+    <Compile Include="Models\PriceDTO.cs" />
+    <Compile Include="Models\PriceListDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

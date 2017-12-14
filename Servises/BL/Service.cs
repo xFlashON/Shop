@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Servises.Interfaces;
 using DAL.Interfaces;
 using DAL.Model;
+using Servises.Models;
 
 namespace Servises.BL
 {
@@ -65,9 +66,20 @@ namespace Servises.BL
             return databaseService.ProductTypeRepository.GetAll();
         }
 
-        IEnumerable<Price> IService.GetProductPrices()
+        PriceListDTO IService.GetProductPrices(int page, int pageSize, PriceType priceType)
         {
-            return databaseService.PriceRepository.GetAll();
+            
+            var priceList = new PriceListDTO(){PageSize = pageSize, Records = 10, Total = 10,
+                rows = new []
+                {
+                    new PriceDTO(){Id = 1, ProductId = 1,ProductName = "test", PriceTypeId = 1, PriceTypeName = "priceType", Price = 10.0M},
+                    new PriceDTO(){Id = 2, ProductId = 2,ProductName = "test2", PriceTypeId = 1, PriceTypeName = "priceType", Price = 20.0M},
+                    new PriceDTO(){Id = 3, ProductId = 3,ProductName = "test3", PriceTypeId = 1, PriceTypeName = "priceType", Price = 30.0M},
+                    new PriceDTO(){Id = 4, ProductId = 4,ProductName = "test4", PriceTypeId = 1, PriceTypeName = "priceType", Price = 25.0M}
+                } };
+
+
+            return priceList;
         }
 
         public void SaveImage(int productId, byte[] imageData, string mimoType)

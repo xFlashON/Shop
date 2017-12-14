@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using DAL.Interfaces;
 using DAL.Model;
 using System.ComponentModel.DataAnnotations;
+using Servises.Models;
 
 namespace Servises.Interfaces
 {
@@ -15,7 +16,7 @@ namespace Servises.Interfaces
         Product GetProduct(int id);
         IEnumerable<ProductType> GetProductTypes();
         IEnumerable<PriceType> GetPriceTypes();
-        IEnumerable<Price> GetProductPrices();
+        PriceListDTO GetProductPrices(int page, int pageSize, PriceType priceType);
         ValidationException CreateOrder(Order order);
         void SaveImage(int productId, byte[] imageData, string mimoType);
         ProductImage GetImage(int imageId);
