@@ -14,22 +14,56 @@
 <link href="~/Content/jquery.jqGrid/ui.jqgrid.css" rel="stylesheet" type="text/css" />
 
 
-<script type="text/javascript"> 
+<script type="text/javascript">
     $(document).ready(function () {
+
+        var template = "<div style='margin-left:15px;'><div> ID <sup>*</sup>:</div><div> {Id} </div>";
+        template += "<div> Товар: </div><div>{ProductName} </div>";
+        template += "<div> Цена: </div><div>{Price} </div>";
+        template += "<hr style='width:100%;'/>";
+        template += "<div> {sData} {cData}  </div></div>";
+
+
         $("#jqGrid").jqGrid({
             url: '@Url.Action("GetPrices","Manage")',
             mtype: "GET",
             datatype: "json",
+            editurl: 'EditPrice',
             colModel: [
-                { label: 'Код', name: 'Id', key: true, width: 50 },
-                { label: 'Товар', name: 'ProductName', width: 150 },
-                { label: 'Цена', name: 'Price', width: 150 }
+                { label: 'Код', name: 'Id', key: true, width: 150 },
+                { label: 'Товар', name: 'ProductName', width: 150, editable: true },
+                { label: 'Цена', name: 'Price', width: 150, editable: true }
             ],
             viewrecords: true,
             jsonReader: { repeatitems: false },
             rowNum: 20,
             pager: "#jqGridPager"
         });
+
+        $('#jqGrid').navGrid('#jqGridPager',
+            // the buttons to appear on the toolbar of the grid
+            { edit: true, add: true, del: true, search: true refresh: true, view: false, position: "left", cloneToTop: false },
+            // options for the Edit Dialog
+            {
+                editCaption: "The Edit Dialog",
+                template: template,
+                errorTextFormat: function (data) {
+                    return 'Error: ' + data.responseText
+                }
+            },
+            // options for the Add Dialog
+            {
+                template: template,
+                errorTextFormat: function (data) {
+                    return 'Error: ' + data.responseText
+                }
+            },
+            // options for the Delete Dailog
+            {
+                errorTextFormat: function (data) {
+                    return 'Error: ' + data.responseText
+                }
+            });
     });
- 
+
 </script>

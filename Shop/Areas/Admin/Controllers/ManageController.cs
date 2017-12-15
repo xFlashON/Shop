@@ -301,5 +301,11 @@ namespace Shop.Areas.Admin.Controllers
             return Json(priceList,JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult EditPrice()
+        {
+
+            return null;
+        }
+
     }
 }
