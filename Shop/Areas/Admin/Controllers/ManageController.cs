@@ -8,6 +8,7 @@ using Servises.Interfaces;
 using Shop.Models;
 using DAL.Model;
 using System.IO;
+using System.Net;
 using System.Web.Helpers;
 using Newtonsoft.Json;
 using Shop.Areas.Admin.Models;
@@ -304,7 +305,7 @@ namespace Shop.Areas.Admin.Controllers
         public ActionResult EditPrice()
         {
 
-            return null;
+             return new HttpStatusCodeResult(HttpStatusCode.NotModified, "textError"); 
         }
 
     }

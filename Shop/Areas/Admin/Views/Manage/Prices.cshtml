@@ -7,7 +7,7 @@
 <div id="jqGridPager"></div>
 
 <script src="~/Scripts/jquery-3.2.1.min.js"></script>
-<script src="~/Scripts/i18n/grid.locale-en.js"></script>
+<script src="~/Scripts/i18n/grid.locale-ru.js"></script>
 <script src="~/Scripts/jquery.jqGrid.min.js" type="text/javascript"></script>
 
 <link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
@@ -19,6 +19,7 @@
 
         var template = "<div style='margin-left:15px;'><div> ID <sup>*</sup>:</div><div> {Id} </div>";
         template += "<div> Товар: </div><div>{ProductName} </div>";
+        template += "<div> Товар: </div><div>{PriceType} </div>";
         template += "<div> Цена: </div><div>{Price} </div>";
         template += "<hr style='width:100%;'/>";
         template += "<div> {sData} {cData}  </div></div>";
@@ -30,8 +31,22 @@
             datatype: "json",
             editurl: 'EditPrice',
             colModel: [
-                { label: 'Код', name: 'Id', key: true, width: 150 },
-                { label: 'Товар', name: 'ProductName', width: 150, editable: true },
+                {
+                    label: 'Код',
+                    name: 'Id',
+                    key: true,
+                    width: 150,
+                    editable: true,
+                    editoptions: { readonly: "readonly" }
+                },
+                {
+                    label: 'Товар', index: 'ProductId', name: 'ProductId', width: 150, editable: true, edittype:"select",
+                    editoptions: {
+                        dataUrl: '@Url.Action("GetProductsSelectList", "Service", new { Area = ""})'
+
+                    }
+                },
+                { label: 'Тип цены', name: 'PriceType', width: 150, editable: true, edittype:"select" },
                 { label: 'Цена', name: 'Price', width: 150, editable: true }
             ],
             viewrecords: true,
@@ -42,28 +57,37 @@
 
         $('#jqGrid').navGrid('#jqGridPager',
             // the buttons to appear on the toolbar of the grid
-            { edit: true, add: true, del: true, search: true refresh: true, view: false, position: "left", cloneToTop: false },
+            { edit: true, add: true, del: true, search: true, refresh: true, view: false, position: "left", cloneToTop: false },
             // options for the Edit Dialog
             {
                 editCaption: "The Edit Dialog",
-                template: template,
+                //template: template,
+                closeAfterEdit: true,
                 errorTextFormat: function (data) {
-                    return 'Error: ' + data.responseText
+                    return 'Error: ' + data.statusText;
                 }
             },
             // options for the Add Dialog
             {
                 template: template,
+                closeAfterEdit: true,
                 errorTextFormat: function (data) {
-                    return 'Error: ' + data.responseText
+                    return 'Error: ' + data.statusText;
                 }
             },
             // options for the Delete Dailog
             {
                 errorTextFormat: function (data) {
-                    return 'Error: ' + data.responseText
+                    return 'Error: ' + data.statusText;
                 }
             });
+
+        $.get('',
+            function(data) {
+                var res = $(data).html();
+                $("#selectList").html(res);
+            });
+
     });
 
 </script>

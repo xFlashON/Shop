@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Shop.Models;
 
 namespace Shop.Controllers
 {
@@ -31,5 +32,19 @@ namespace Shop.Controllers
             return File(image.ImageData, image.ImageMimeType);
 
         }
+
+        [HttpGet]
+        public ActionResult GetProductsSelectList(int? selectedId)
+        {
+
+            var model = new SelectListViewModel();
+
+            model.ItemsList = new SelectList(blService.GetAllProducts().OrderBy(p => p.Name), "Id", "Name");
+
+            model.SelectedItemId = selectedId ?? 0;
+
+            return PartialView("SelectList", model);
+        }
+
     }
 }

@@ -231,6 +231,7 @@
     <Compile Include="Models\PriceTypeViewModel.cs" />
     <Compile Include="Models\ProductTypeViewModel.cs" />
     <Compile Include="Models\ProductViewModel.cs" />
+    <Compile Include="Models\SelectListViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Utils\IdentityModelInitializer.cs" />
@@ -414,11 +415,11 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Catalog\Catalog.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
+    <Content Include="Views\Service\SelectList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
-    <Folder Include="Views\Service\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
