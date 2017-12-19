@@ -21,8 +21,9 @@
             url: '@Url.Action("GetPrices","Manage")',
             mtype: "GET",
             datatype: "json",
-            editurl: '@Url.Action("EditPrice", "Admin", new { Area = "Admin"})',
+            editurl: '@Url.Action("EditPrice", "Manage", new { Area = "Admin"})',
             colModel: [
+                
                 {
                     label: 'Код',
                     name: 'Id',
@@ -32,48 +33,76 @@
                     editoptions: { readonly: "readonly" }
                 },
                 {
-                    label: 'Тип товара', name: 'ProductTypeName', index: 'ProductTypeId', width: 150, editable: true, edittype:"select",
+                    label: 'Тип товара', name: 'ProductTypeName', width: 150, editable: true, edittype:"select",
                     editoptions: {
                         dataUrl: '@Url.Action("GetProductTypesSelectList", "Service", new { Area = ""})',
-
+                    },
+                    editrules: {
+                        required: true
                     }
                 },
                 {
-                    label: 'Товар', name: 'ProductName', index: 'ProductId', width: 150, editable: true, edittype:"select",
+                    label: 'Товар', name: 'ProductName', width: 150, editable: true, edittype:"select",
                     editoptions: {
                         dataUrl: '@Url.Action("GetProductsSelectList", "Service", new { Area = ""})',
-
+                    },
+                    editrules: {
+                        required: true
                     }
                 },
                 {
-                    label: 'Тип цены', name: 'PriceType', index: 'PriceTypeId', width: 150, editable: true, edittype: "select",
+                    label: 'Тип цены', name: 'PriceType', width: 150, editable: true, edittype: "select",
                      editoptions: {
                         dataUrl: '@Url.Action("GetPriceTypesSelectList", "Service", new { Area = ""})',
+                    },
+                     editrules: {
+                         required: true
                     }
                 },
-                { label: 'Цена', name: 'Price', width: 150, editable: true }
+                {
+                    label: 'Цена', name: 'Price', width: 150, editable: true,
+                    editrules: {
+                        number: true,
+                        required: true
+                    }
+                },
+                {
+                    label: "Действия",
+                    name: "actions",
+                    width: 100,
+                    formatter: "actions",
+                    formatoptions: {
+                        keys: true,
+                        editOptions: {},
+                        addOptions: {},
+                        delOptions: {}
+                    }
+                }
             ],
             jsonReader: { repeatitems: false },
             loadonce : true,
-            onSelectRow: editRow, // the javascript function to call on row click. will ues to to put the row in edit mode
             viewrecords: true,
-            width: 750,
-            height: 250,
+            width: 1000,
+            height: 400,
             rowNum: 20,
             pager: "#jqGridPager"
 
         });
 
-        var lastSelection;
-
-        function editRow(id) {
-            if (id && id !== lastSelection) {
-                var grid = $("#jqGrid");
-                grid.jqGrid('restoreRow',lastSelection);
-                grid.jqGrid('editRow',id, {keys:true, focusField: 3});
-                lastSelection = id;
-            }
-        }
+        $('#jqGrid').navGrid("#jqGridPager", { edit: false, add: true, del: true, refresh: true, view: true })
+        $('#jqGrid').inlineNav('#jqGridPager',
+            {
+                edit: false,
+                add: true,
+                del: true,
+                cancel: true,
+                editParams: {
+                    keys: true,
+                },
+                addParams: {
+                    keys: true
+                }
+            });
 
     });
 
