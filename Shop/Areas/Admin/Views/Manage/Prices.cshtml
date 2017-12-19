@@ -23,7 +23,7 @@
             datatype: "json",
             editurl: '@Url.Action("EditPrice", "Manage", new { Area = "Admin"})',
             colModel: [
-                
+
                 {
                     label: 'Код',
                     name: 'Id',
@@ -36,15 +36,42 @@
                     label: 'Тип товара', name: 'ProductTypeName', width: 150, editable: true, edittype:"select",
                     editoptions: {
                         dataUrl: '@Url.Action("GetProductTypesSelectList", "Service", new { Area = ""})',
+                        dataEvents: [{ type: 'change', fn: function(e) {
+
+                            var thisval = $(e.target).val();
+
+                            $.get(
+                                '@Url.Action("GetProductsSelectList", "Service", new { Area = ""})' + '?groupId=' + thisval, function (data) {
+
+                                    var rowId = $("#jqGrid").jqGrid('getGridParam', 'selrow');
+                                    $("#" + rowId + "_ProductName").html(data);
+
+                                });
+
+                        } }]
                     },
                     editrules: {
                         required: true
                     }
+
                 },
                 {
                     label: 'Товар', name: 'ProductName', width: 150, editable: true, edittype:"select",
                     editoptions: {
-                        dataUrl: '@Url.Action("GetProductsSelectList", "Service", new { Area = ""})',
+                        dataUrl: '@Url.Action("GetProductsSelectList", "Service", new { Area = ""})'
+                        //value: function() {
+
+                        //    var rowId = $("#jqGrid").jqGrid('getGridParam', 'selrow');
+                        //    console.log($("#jqGrid").jqGrid('getRowData', rowId));
+
+                        //    //var rowId = $("#jqGrid").jqGrid('getGridParam', 'selrow');
+                        //    //var groupId = $("#" + rowId + "_ProductTypeName");
+
+                        //    //console.log(groupId);
+
+                        //    //console.log(groupId.val());
+
+                        //}
                     },
                     editrules: {
                         required: true
@@ -73,8 +100,8 @@
                     formatter: "actions",
                     formatoptions: {
                         keys: true,
-                        editOptions: {},
                         addOptions: {},
+                        editOptions: {},
                         delOptions: {}
                     }
                 }
@@ -82,6 +109,10 @@
             jsonReader: { repeatitems: false },
             loadonce : true,
             viewrecords: true,
+            onSelectRow: function(rowId) {
+                console.log($("#jqGrid").jqGrid('getRowData', rowId));
+                console.log($("#jqGrid").jqGrid('getCell', rowId, 'ProductName'));
+            },
             width: 1000,
             height: 400,
             rowNum: 20,
@@ -89,15 +120,16 @@
 
         });
 
-        $('#jqGrid').navGrid("#jqGridPager", { edit: false, add: true, del: true, refresh: true, view: true })
+        $('#jqGrid').navGrid("#jqGridPager", {edit: false, add: false, del: false, refresh: false, view: false});
         $('#jqGrid').inlineNav('#jqGridPager',
+            // the buttons to appear on the toolbar of the grid
             {
                 edit: false,
                 add: true,
-                del: true,
+                del: false,
                 cancel: true,
                 editParams: {
-                    keys: true,
+                    keys: true
                 },
                 addParams: {
                     keys: true
