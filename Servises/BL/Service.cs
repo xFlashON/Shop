@@ -8,6 +8,7 @@ using Servises.Interfaces;
 using DAL.Interfaces;
 using DAL.Model;
 using Servises.Models;
+using System.Collections;
 
 namespace Servises.BL
 {
@@ -70,15 +71,10 @@ namespace Servises.BL
         {
             
             var priceList = new PriceListDTO(){PageSize = pageSize, Records = 10, Total = 10,
-                rows = new []
-                {
-                    new PriceDTO(){Id = 1, ProductId = 1,ProductName = "test", PriceTypeId = 1, PriceTypeName = "priceType", Price = 10.0M},
-                    new PriceDTO(){Id = 2, ProductId = 2,ProductName = "test2", PriceTypeId = 1, PriceTypeName = "priceType", Price = 20.0M},
-                    new PriceDTO(){Id = 3, ProductId = 3,ProductName = "test3", PriceTypeId = 1, PriceTypeName = "priceType", Price = 30.0M},
-                    new PriceDTO(){Id = 4, ProductId = 4,ProductName = "test4", PriceTypeId = 1, PriceTypeName = "priceType", Price = 25.0M}
-                } };
+                rows = DatabaseService.ProductRepository.GetAll().Select(p=>new PriceDTO(){Id = p.Id,Price = 10*p.Id,PriceTypeId = 1,PriceTypeName = "Цена1",ProductId = p.Id,ProductName = p.Name})
+            };
 
-
+        
             return priceList;
         }
 

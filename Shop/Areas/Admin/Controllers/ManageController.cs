@@ -305,7 +305,7 @@ namespace Shop.Areas.Admin.Controllers
         public ActionResult EditPrice()
         {
 
-             return new HttpStatusCodeResult(HttpStatusCode.NotModified, "textError"); 
+             return new HttpStatusCodeResult(HttpStatusCode.OK); 
         }
 
     }

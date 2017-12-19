@@ -39,7 +39,7 @@ namespace Shop.Controllers
 
             var model = new SelectListViewModel();
 
-            model.ItemsList = new SelectList(blService.GetAllProducts().OrderBy(p => p.Name), "Id", "Name");
+            model.ItemsList = new SelectList(blService.GetAllProducts().OrderBy(p => p.Name), "Name", "Name");
 
             model.SelectedItemId = selectedId ?? 0;
 

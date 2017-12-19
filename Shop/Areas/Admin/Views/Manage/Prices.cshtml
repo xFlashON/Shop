@@ -17,14 +17,6 @@
 <script type="text/javascript">
     $(document).ready(function () {
 
-        var template = "<div style='margin-left:15px;'><div> ID <sup>*</sup>:</div><div> {Id} </div>";
-        template += "<div> Товар: </div><div>{ProductName} </div>";
-        template += "<div> Товар: </div><div>{PriceType} </div>";
-        template += "<div> Цена: </div><div>{Price} </div>";
-        template += "<hr style='width:100%;'/>";
-        template += "<div> {sData} {cData}  </div></div>";
-
-
         $("#jqGrid").jqGrid({
             url: '@Url.Action("GetPrices","Manage")',
             mtype: "GET",
@@ -40,53 +32,37 @@
                     editoptions: { readonly: "readonly" }
                 },
                 {
-                    label: 'Товар', index: 'ProductId', name: 'ProductId', width: 150, editable: true, edittype:"select",
+                    label: 'Товар', name: 'ProductName', index: 'ProductId', width: 150, editable: true, edittype:"select",
                     editoptions: {
-                        dataUrl: '@Url.Action("GetProductsSelectList", "Service", new { Area = ""})'
+                        dataUrl: '@Url.Action("GetProductsSelectList", "Service", new { Area = ""})',
+                        cacheUrlData: true
 
                     }
                 },
                 { label: 'Тип цены', name: 'PriceType', width: 150, editable: true, edittype:"select" },
                 { label: 'Цена', name: 'Price', width: 150, editable: true }
             ],
-            viewrecords: true,
             jsonReader: { repeatitems: false },
+            loadonce : true,
+            onSelectRow: editRow, // the javascript function to call on row click. will ues to to put the row in edit mode
+            viewrecords: true,
+            width: 750,
+            height: 250,
             rowNum: 20,
             pager: "#jqGridPager"
+
         });
 
-        $('#jqGrid').navGrid('#jqGridPager',
-            // the buttons to appear on the toolbar of the grid
-            { edit: true, add: true, del: true, search: true, refresh: true, view: false, position: "left", cloneToTop: false },
-            // options for the Edit Dialog
-            {
-                editCaption: "The Edit Dialog",
-                //template: template,
-                closeAfterEdit: true,
-                errorTextFormat: function (data) {
-                    return 'Error: ' + data.statusText;
-                }
-            },
-            // options for the Add Dialog
-            {
-                template: template,
-                closeAfterEdit: true,
-                errorTextFormat: function (data) {
-                    return 'Error: ' + data.statusText;
-                }
-            },
-            // options for the Delete Dailog
-            {
-                errorTextFormat: function (data) {
-                    return 'Error: ' + data.statusText;
-                }
-            });
+        var lastSelection;
 
-        $.get('',
-            function(data) {
-                var res = $(data).html();
-                $("#selectList").html(res);
-            });
+        function editRow(id) {
+            if (id && id !== lastSelection) {
+                var grid = $("#jqGrid");
+                grid.jqGrid('restoreRow',lastSelection);
+                grid.jqGrid('editRow',id, {keys:true, focusField: 3});
+                lastSelection = id;
+            }
+        }
 
     });
 
