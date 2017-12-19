@@ -16,7 +16,7 @@ namespace Servises.Interfaces
         Product GetProduct(int id);
         IEnumerable<ProductType> GetProductTypes();
         IEnumerable<PriceType> GetPriceTypes();
-        PriceListDTO GetProductPrices(int page, int pageSize, PriceType priceType);
+        PriceListDTO GetProductPrices(int page, int pageSize);
         ValidationException CreateOrder(Order order);
         void SaveImage(int productId, byte[] imageData, string mimoType);
         ProductImage GetImage(int imageId);

@@ -21,7 +21,7 @@
             url: '@Url.Action("GetPrices","Manage")',
             mtype: "GET",
             datatype: "json",
-            editurl: 'EditPrice',
+            editurl: '@Url.Action("EditPrice", "Admin", new { Area = "Admin"})',
             colModel: [
                 {
                     label: 'Код',
@@ -32,14 +32,25 @@
                     editoptions: { readonly: "readonly" }
                 },
                 {
-                    label: 'Товар', name: 'ProductName', index: 'ProductId', width: 150, editable: true, edittype:"select",
+                    label: 'Тип товара', name: 'ProductTypeName', index: 'ProductTypeId', width: 150, editable: true, edittype:"select",
                     editoptions: {
-                        dataUrl: '@Url.Action("GetProductsSelectList", "Service", new { Area = ""})',
-                        cacheUrlData: true
+                        dataUrl: '@Url.Action("GetProductTypesSelectList", "Service", new { Area = ""})',
 
                     }
                 },
-                { label: 'Тип цены', name: 'PriceType', width: 150, editable: true, edittype:"select" },
+                {
+                    label: 'Товар', name: 'ProductName', index: 'ProductId', width: 150, editable: true, edittype:"select",
+                    editoptions: {
+                        dataUrl: '@Url.Action("GetProductsSelectList", "Service", new { Area = ""})',
+
+                    }
+                },
+                {
+                    label: 'Тип цены', name: 'PriceType', index: 'PriceTypeId', width: 150, editable: true, edittype: "select",
+                     editoptions: {
+                        dataUrl: '@Url.Action("GetPriceTypesSelectList", "Service", new { Area = ""})',
+                    }
+                },
                 { label: 'Цена', name: 'Price', width: 150, editable: true }
             ],
             jsonReader: { repeatitems: false },

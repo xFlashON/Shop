@@ -34,16 +34,47 @@ namespace Shop.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetProductsSelectList(int? selectedId)
+        public ActionResult GetProductsSelectList(int? groupId)
         {
 
             var model = new SelectListViewModel();
 
-            model.ItemsList = new SelectList(blService.GetAllProducts().OrderBy(p => p.Name), "Name", "Name");
-
-            model.SelectedItemId = selectedId ?? 0;
+            if (groupId.HasValue)
+            {
+                model.ItemsList = new SelectList(blService.DatabaseService.ProductRepository.Get(p=>p.ProductTypeId==groupId).OrderBy(p => p.Name), "Id", "Name");
+            }
+            else
+            {
+                model.ItemsList = new SelectList(blService.DatabaseService.ProductRepository.GetAll().OrderBy(p => p.Name), "Id", "Name");
+            }
 
             return PartialView("SelectList", model);
+
+        }
+
+
+        [HttpGet]
+        public ActionResult GetProductTypesSelectList()
+        {
+
+            var model = new SelectListViewModel();
+
+            model.ItemsList = new SelectList(blService.DatabaseService.ProductTypeRepository.GetAll().OrderBy(p => p.Name), "Id", "Name");
+
+            return PartialView("SelectList", model);
+
+        }
+
+        [HttpGet]
+        public ActionResult GetPriceTypesSelectList()
+        {
+
+            var model = new SelectListViewModel();
+
+            model.ItemsList = new SelectList(blService.DatabaseService.PriceTypeRepository.GetAll().OrderBy(p => p.Name), "Id", "Name");
+
+            return PartialView("SelectList", model);
+
         }
 
     }

@@ -297,7 +297,7 @@ namespace Shop.Areas.Admin.Controllers
         public JsonResult GetPrices(int page, int rows)
         {
 
-            var priceList = blService.GetProductPrices(page, rows, null);
+            var priceList = blService.GetProductPrices(page, rows);
 
             return Json(priceList,JsonRequestBehavior.AllowGet);
         }

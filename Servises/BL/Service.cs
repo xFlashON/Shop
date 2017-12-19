@@ -67,11 +67,20 @@ namespace Servises.BL
             return databaseService.ProductTypeRepository.GetAll();
         }
 
-        PriceListDTO IService.GetProductPrices(int page, int pageSize, PriceType priceType)
+        PriceListDTO IService.GetProductPrices(int page, int pageSize)
         {
             
             var priceList = new PriceListDTO(){PageSize = pageSize, Records = 10, Total = 10,
-                rows = DatabaseService.ProductRepository.GetAll().Select(p=>new PriceDTO(){Id = p.Id,Price = 10*p.Id,PriceTypeId = 1,PriceTypeName = "Цена1",ProductId = p.Id,ProductName = p.Name})
+                rows = DatabaseService.ProductRepository.GetAll().Select(p=>new PriceDTO(){
+                    Id = p.Id,
+                    Price = 10*p.Id,
+                    PriceTypeId = 1,
+                    PriceTypeName = "Цена1",
+                    ProductId = p.Id,
+                    ProductName = p.Name,
+                    ProductTypeId = p.ProductTypeId,
+                    ProductTypeName = p.ProductType?.Name??string.Empty
+                })
             };
 
         
