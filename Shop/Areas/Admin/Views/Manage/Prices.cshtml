@@ -33,7 +33,7 @@
                     editoptions: { readonly: "readonly" }
                 },
                 {
-                    label: 'Тип товара', name: 'ProductTypeName', width: 150, editable: true, edittype:"select",
+                    label: 'Тип товара', name: 'ProductTypeName', width: 150, editable: true, edittype: "select",
                     editoptions: {
                         dataUrl: '@Url.Action("GetProductTypesSelectList", "Service", new { Area = ""})',
                         dataEvents: [{ type: 'change', fn: function(e) {
@@ -48,7 +48,8 @@
 
                                 });
 
-                        } }]
+                        }
+                        }]
                     },
                     editrules: {
                         required: true
@@ -59,19 +60,6 @@
                     label: 'Товар', name: 'ProductName', width: 150, editable: true, edittype:"select",
                     editoptions: {
                         dataUrl: '@Url.Action("GetProductsSelectList", "Service", new { Area = ""})'
-                        //value: function() {
-
-                        //    var rowId = $("#jqGrid").jqGrid('getGridParam', 'selrow');
-                        //    console.log($("#jqGrid").jqGrid('getRowData', rowId));
-
-                        //    //var rowId = $("#jqGrid").jqGrid('getGridParam', 'selrow');
-                        //    //var groupId = $("#" + rowId + "_ProductTypeName");
-
-                        //    //console.log(groupId);
-
-                        //    //console.log(groupId.val());
-
-                        //}
                     },
                     editrules: {
                         required: true
@@ -109,16 +97,14 @@
             jsonReader: { repeatitems: false },
             loadonce : true,
             viewrecords: true,
-            onSelectRow: function(rowId) {
-                console.log($("#jqGrid").jqGrid('getRowData', rowId));
-                console.log($("#jqGrid").jqGrid('getCell', rowId, 'ProductName'));
-            },
             width: 1000,
             height: 400,
             rowNum: 20,
             pager: "#jqGridPager"
 
         });
+
+   
 
         $('#jqGrid').navGrid("#jqGridPager", {edit: false, add: false, del: false, refresh: false, view: false});
         $('#jqGrid').inlineNav('#jqGridPager',
