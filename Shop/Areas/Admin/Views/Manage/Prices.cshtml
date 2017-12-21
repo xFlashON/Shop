@@ -33,6 +33,11 @@
                     editoptions: { readonly: "readonly" }
                 },
                 {
+                    label: 'Код типа товара',
+                    name: 'ProductTypeId',
+                    hidden:true
+                },
+                {
                     label: 'Тип товара', name: 'ProductTypeName', width: 150, editable: true, edittype: "select",
                     editoptions: {
                         dataUrl: '@Url.Action("GetProductTypesSelectList", "Service", new { Area = ""})',
@@ -46,8 +51,9 @@
                                     var rowId = $("#jqGrid").jqGrid('getGridParam', 'selrow');
                                     $("#" + rowId + "_ProductName").html(data);
 
-                                });
+                                    $('#jqGrid').jqGrid('setCell', rowId, 'ProductTypeId', thisval)
 
+                                });
                         }
                         }]
                     },
@@ -60,6 +66,7 @@
                     label: 'Товар', name: 'ProductName', width: 150, editable: true, edittype:"select",
                     editoptions: {
                         dataUrl: '@Url.Action("GetProductsSelectList", "Service", new { Area = ""})'
+
                     },
                     editrules: {
                         required: true
@@ -67,8 +74,9 @@
                 },
                 {
                     label: 'Тип цены', name: 'PriceType', width: 150, editable: true, edittype: "select",
-                     editoptions: {
-                        dataUrl: '@Url.Action("GetPriceTypesSelectList", "Service", new { Area = ""})',
+                    editoptions: {
+                        dataUrl: '@Url.Action("GetPriceTypesSelectList", "Service", new { Area = ""})'
+
                     },
                      editrules: {
                          required: true
@@ -97,6 +105,18 @@
             jsonReader: { repeatitems: false },
             loadonce : true,
             viewrecords: true,
+            onSelectRow: function (Id) {
+                $('#jqGrid').jqGrid('setColProp', 'ProductName',
+                    {
+                        editoptions: {
+                            dataUrl: '@Url.Action("GetProductsSelectList", "Service", new { Area = ""})' + '?groupId=' + $('#jqGrid').jqGrid('getCell', Id, 'ProductTypeId')
+
+                        },
+                        editrules: {
+                            required: true
+                        }
+                    });
+            },
             width: 1000,
             height: 400,
             rowNum: 20,
@@ -104,7 +124,7 @@
 
         });
 
-   
+
 
         $('#jqGrid').navGrid("#jqGridPager", {edit: false, add: false, del: false, refresh: false, view: false});
         $('#jqGrid').inlineNav('#jqGridPager',
