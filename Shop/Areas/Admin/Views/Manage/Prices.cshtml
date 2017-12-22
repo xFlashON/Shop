@@ -73,7 +73,7 @@
                     }
                 },
                 {
-                    label: 'Тип цены', name: 'PriceType', width: 150, editable: true, edittype: "select",
+                    label: 'Тип цены', name: 'PriceTypeName', width: 150, editable: true, edittype: "select",
                     editoptions: {
                         dataUrl: '@Url.Action("GetPriceTypesSelectList", "Service", new { Area = ""})'
 
@@ -88,19 +88,20 @@
                         number: true,
                         required: true
                     }
-                },
-                {
-                    label: "Действия",
-                    name: "actions",
-                    width: 100,
-                    formatter: "actions",
-                    formatoptions: {
-                        keys: true,
-                        addOptions: {},
-                        editOptions: {},
-                        delOptions: {}
-                    }
                 }
+                ,
+                //{
+                //    label: "Действия",
+                //    name: "actions",
+                //    width: 100,
+                //    formatter: "actions",
+                //    formatoptions: {
+                //        keys: true,
+                //        addOptions: {},
+                //        editOptions: {},
+                //        delOptions: {}
+                //    }
+                //}
             ],
             jsonReader: { repeatitems: false },
             loadonce : true,
@@ -124,20 +125,20 @@
 
         });
 
-
-
-        $('#jqGrid').navGrid("#jqGridPager", {edit: false, add: false, del: false, refresh: false, view: false});
+        $('#jqGrid').navGrid("#jqGridPager", { edit: false, add: false, del: true, refresh: true, view: false});
         $('#jqGrid').inlineNav('#jqGridPager',
-            // the buttons to appear on the toolbar of the grid
             {
-                edit: false,
+                edit: true,
                 add: true,
-                del: false,
-                cancel: true,
+                del: true,
+                cancel: true,              
+                addParams: {
+                    keys: true
+                },
                 editParams: {
                     keys: true
                 },
-                addParams: {
+                deleteParams: {
                     keys: true
                 }
             });

@@ -302,9 +302,8 @@ namespace Shop.Areas.Admin.Controllers
             return Json(priceList,JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult EditPrice()
+        public ActionResult EditPrice(string oper, int? Id, int ProductName, int PriceTypeName, decimal Price)
         {
-
              return new HttpStatusCodeResult(HttpStatusCode.OK); 
         }
 
