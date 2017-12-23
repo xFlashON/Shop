@@ -51,7 +51,7 @@
                                     var rowId = $("#jqGrid").jqGrid('getGridParam', 'selrow');
                                     $("#" + rowId + "_ProductName").html(data);
 
-                                    $('#jqGrid').jqGrid('setCell', rowId, 'ProductTypeId', thisval)
+                                    $('#jqGrid').jqGrid('setCell', rowId, 'ProductTypeId', thisval);
 
                                 });
                         }
@@ -89,22 +89,9 @@
                         required: true
                     }
                 }
-                ,
-                //{
-                //    label: "Действия",
-                //    name: "actions",
-                //    width: 100,
-                //    formatter: "actions",
-                //    formatoptions: {
-                //        keys: true,
-                //        addOptions: {},
-                //        editOptions: {},
-                //        delOptions: {}
-                //    }
-                //}
+                
             ],
             jsonReader: { repeatitems: false },
-            loadonce : true,
             viewrecords: true,
             onSelectRow: function (Id) {
                 $('#jqGrid').jqGrid('setColProp', 'ProductName',
@@ -120,10 +107,27 @@
             },
             width: 1000,
             height: 400,
-            rowNum: 20,
+            rowNum: 10,
             pager: "#jqGridPager"
 
         });
+
+        var editOptions = {
+            keys: true,
+            successfunc: function (p1,p2) {
+                var $self = $(this);
+                setTimeout(function () {
+                    $self.trigger("reloadGrid");
+                }, 50);
+            },
+            errorfunc:function(p1, p2) {
+                alert(p1.StatusText);
+                var $self = $(this);
+                setTimeout(function () {
+                    $self.trigger("reloadGrid");
+                }, 50);
+            }
+        };
 
         $('#jqGrid').navGrid("#jqGridPager", { edit: false, add: false, del: true, refresh: true, view: false});
         $('#jqGrid').inlineNav('#jqGridPager',
@@ -133,11 +137,10 @@
                 del: true,
                 cancel: true,              
                 addParams: {
-                    keys: true
+                    position: "last",
+                    addRowParams: editOptions
                 },
-                editParams: {
-                    keys: true
-                },
+                editParams: editOptions,
                 deleteParams: {
                     keys: true
                 }

@@ -9,7 +9,9 @@ using Shop.Models;
 using DAL.Model;
 using System.IO;
 using System.Net;
+using System.Net.Http;
 using System.Web.Helpers;
+using Microsoft.Ajax.Utilities;
 using Newtonsoft.Json;
 using Shop.Areas.Admin.Models;
 
@@ -182,7 +184,7 @@ namespace Shop.Areas.Admin.Controllers
 
             var product = Mapper.Map<Product>(model);
 
-            if (product.Id==0)
+            if (product.Id == 0)
                 blService.DatabaseService.ProductRepository.Create(product);
             else
                 blService.DatabaseService.ProductRepository.Update(product);
@@ -299,12 +301,63 @@ namespace Shop.Areas.Admin.Controllers
 
             var priceList = blService.GetProductPrices(page, rows);
 
-            return Json(priceList,JsonRequestBehavior.AllowGet);
+            return Json(priceList, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult EditPrice(string oper, int? Id, int ProductName, int PriceTypeName, decimal Price)
+        public ActionResult EditPrice(string oper, int? Id, int? ProductName, int? PriceTypeName, decimal? Price)
         {
-             return new HttpStatusCodeResult(HttpStatusCode.OK); 
+
+            switch (oper)
+            {
+                case "add":
+                    {
+                        if (ProductName.HasValue && PriceTypeName.HasValue && Price.HasValue)
+                        {
+                            var product = blService.GetProduct((int)ProductName);
+                            var priceType = blService.DatabaseService.PriceTypeRepository.Get((int)PriceTypeName);
+
+                            if (product == null || priceType == null)
+                            {
+                                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+                            }
+
+                            if (blService.DatabaseService.PriceRepository
+                                    .Get(p => p.Product.Id == product.Id && p.PriceType.Id == priceType.Id).FirstOrDefault() != null)
+                            {
+                                return new HttpStatusCodeResult(HttpStatusCode.Conflict,"Price alredy exist");
+                            }
+
+                            var newPrice = new Price()
+                            {
+                                PriceTypeId = priceType.Id,
+                                ProductId = product.Id,
+                                CurrentPrice = (decimal) Price
+                            };
+
+                            blService.DatabaseService.PriceRepository.Create(newPrice);
+                            blService.DatabaseService.Save();
+
+                            return Json(new {success = true, Id = newPrice.Id});
+
+                        }
+                        else
+                        {
+                            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                        }
+
+                        break;
+                    }
+                case "edit":
+                    {
+                        break;
+                    }
+                case "del":
+                    {
+                        break;
+                    }
+            }
+
+            return new HttpStatusCodeResult(HttpStatusCode.MethodNotAllowed, "Bad command");
         }
 
     }

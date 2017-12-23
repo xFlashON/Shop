@@ -69,17 +69,23 @@ namespace Servises.BL
 
         PriceListDTO IService.GetProductPrices(int page, int pageSize)
         {
-            
-            var priceList = new PriceListDTO(){PageSize = pageSize, Records = 10, Total = 10,
-                rows = DatabaseService.ProductRepository.GetAll().Select(p=>new PriceDTO(){
+            page = Math.Max(page, 1);
+            pageSize = Math.Max(pageSize, 1);
+
+            var prices = DatabaseService.PriceRepository.GetAll().OrderBy(p=>p.Product.ProductType.Name).ThenBy(p => p.Product.Name).ThenBy(p=>p.PriceType.Name);
+
+            int totalRecords = prices.Count();
+
+            var priceList = new PriceListDTO(){records = totalRecords, total = (int) Math.Ceiling((double)totalRecords/pageSize),
+                rows = prices.Skip((page-1)*pageSize).Take(pageSize).Select(p=>new PriceDTO(){
                     Id = p.Id,
-                    Price = 10*p.Id,
-                    PriceTypeId = 1,
-                    PriceTypeName = "Цена1",
-                    ProductId = p.Id,
-                    ProductName = p.Name,
-                    ProductTypeId = p.ProductTypeId,
-                    ProductTypeName = p.ProductType?.Name??string.Empty
+                    Price = p.CurrentPrice,
+                    PriceTypeId = p.PriceTypeId,
+                    PriceTypeName = p.PriceType.Name,
+                    ProductId = p.ProductId,
+                    ProductName = p.Product.Name,
+                    ProductTypeId = p.Product.ProductTypeId,
+                    ProductTypeName = p.Product.ProductType?.Name??string.Empty
                 })
             };
 
