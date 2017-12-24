@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -304,14 +305,14 @@ namespace Shop.Areas.Admin.Controllers
             return Json(priceList, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult EditPrice(string oper, int? Id, int? ProductName, int? PriceTypeName, decimal? Price)
+        public ActionResult EditPrice(string oper, int? Id, int? ProductName, int? PriceTypeName, string Price)
         {
 
             switch (oper)
             {
                 case "add":
                     {
-                        if (ProductName.HasValue && PriceTypeName.HasValue && Price.HasValue)
+                        if (ProductName.HasValue && PriceTypeName.HasValue && Price!=null)
                         {
                             var product = blService.GetProduct((int)ProductName);
                             var priceType = blService.DatabaseService.PriceTypeRepository.Get((int)PriceTypeName);
@@ -324,20 +325,20 @@ namespace Shop.Areas.Admin.Controllers
                             if (blService.DatabaseService.PriceRepository
                                     .Get(p => p.Product.Id == product.Id && p.PriceType.Id == priceType.Id).FirstOrDefault() != null)
                             {
-                                return new HttpStatusCodeResult(HttpStatusCode.Conflict,"Price alredy exist");
+                                return new HttpStatusCodeResult(HttpStatusCode.Conflict, "Price alredy exist");
                             }
 
                             var newPrice = new Price()
                             {
                                 PriceTypeId = priceType.Id,
                                 ProductId = product.Id,
-                                CurrentPrice = (decimal) Price
+                                CurrentPrice = Decimal.Parse(Price.Replace(".",","))
                             };
 
                             blService.DatabaseService.PriceRepository.Create(newPrice);
                             blService.DatabaseService.Save();
 
-                            return Json(new {success = true, Id = newPrice.Id});
+                            return new HttpStatusCodeResult(HttpStatusCode.OK, newPrice.Id.ToString());
 
                         }
                         else
@@ -349,10 +350,74 @@ namespace Shop.Areas.Admin.Controllers
                     }
                 case "edit":
                     {
+
+                        if (Id.HasValue && ProductName.HasValue && PriceTypeName.HasValue && Price!=null)
+                        {
+
+                            var product = blService.GetProduct((int)ProductName);
+                            var priceType = blService.DatabaseService.PriceTypeRepository.Get((int)PriceTypeName);
+
+                            if (product == null || priceType == null)
+                            {
+                                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+                            }
+
+                            if (blService.DatabaseService.PriceRepository
+                                    .Get(p => p.Product.Id == product.Id && p.PriceType.Id == priceType.Id && p.Id != Id).FirstOrDefault() != null)
+                            {
+                                return new HttpStatusCodeResult(HttpStatusCode.Conflict, "Price alredy exist");
+                            }
+
+                            var price = blService.DatabaseService.PriceRepository.Get((int)Id);
+
+                            if (price == null)
+                            {
+                                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+                            }
+
+                            price.CurrentPrice = Decimal.Parse(Price.Replace(".", ","));
+
+                            blService.DatabaseService.PriceRepository.Update(price);
+                            blService.DatabaseService.Save();
+
+                            return new HttpStatusCodeResult(HttpStatusCode.OK);
+
+                        }
+                        else
+                        {
+                            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                        }
+
                         break;
                     }
                 case "del":
                     {
+
+                        if (Id.HasValue)
+                        {
+
+
+                            var price = blService.DatabaseService.PriceRepository.Get((int)Id);
+
+                            if (price == null)
+                            {
+                                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+                            }
+
+                            blService.DatabaseService.PriceRepository.Delete(price);
+                            blService.DatabaseService.Save();
+
+                            return new HttpStatusCodeResult(HttpStatusCode.OK);
+
+                        }
+                        else
+                        {
+                            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                        }
+
+
+
+
                         break;
                     }
             }

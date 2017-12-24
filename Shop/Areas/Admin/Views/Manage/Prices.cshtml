@@ -83,7 +83,7 @@
                     }
                 },
                 {
-                    label: 'Цена', name: 'Price', width: 150, editable: true,
+                    label: 'Цена', name: 'Price', width: 150, editable: true, formatter:'currency',
                     editrules: {
                         number: true,
                         required: true
@@ -120,8 +120,10 @@
                     $self.trigger("reloadGrid");
                 }, 50);
             },
-            errorfunc:function(p1, p2) {
-                alert(p1.StatusText);
+            errorfunc: function (p1, p2) {
+                if (p2.status !== 200 && p2.statusText !== undefined )
+                    alert(p2.statusText);
+
                 var $self = $(this);
                 setTimeout(function () {
                     $self.trigger("reloadGrid");
