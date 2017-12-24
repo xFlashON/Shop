@@ -26,6 +26,14 @@ namespace Shop
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/angular").Include(
+                "~/Scripts/angular.min.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/cart")
+                .IncludeDirectory("~/Scripts/Controller", "*.js")
+                .Include("~/Scripts/cart.js"));
+
         }
     }
 }

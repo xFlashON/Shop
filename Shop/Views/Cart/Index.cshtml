@@ -1,7 +1,37 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Cart";
 }
 
-<h2>Index</h2>
+<div ng-app="cart">
+    
+    <div class="jumbotron">
+        <table class="table table-bordered table-striped">
+            <caption>Товары в корзине</caption>
+            <tr>
+                <th>№</th>
+                <th>Товар</th>
+                <th>Количество</th>
+                <th>Цена</th>
+                <th>Сумма</th>
+            </tr>
+            
+            <tr ng-repeat="for rowData in models.order">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+
+            </tr>
+
+        </table>
+    </div>
+    
+    
+
+
+    
+    @Scripts.Render("~/bundles/cart")
+</div>
 
