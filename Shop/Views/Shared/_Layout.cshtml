@@ -26,8 +26,9 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Каталог", "Catalog", new { area = "", controller = "Catalog" })</li>
-                    <li>@Html.ActionLink("Админка", "References", new{area="Admin", controller = "Manage"})</li>
+                    <li>@Html.ActionLink("Управление", "References", new{area="Admin", controller = "Manage"})</li>
                 </ul>
+
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
@@ -35,7 +36,7 @@
     <div class="container body-content">
         @RenderBody()
         <footer class="navbar-fixed-bottom">
-            <p>&copy; @DateTime.Now.Year – приложение ASP.NET</p>
+            <p>&copy; @DateTime.Now.Year</p>
         </footer>
     </div>
 

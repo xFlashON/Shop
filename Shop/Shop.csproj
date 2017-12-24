@@ -316,6 +316,9 @@
     <Content Include="Areas\Admin\Views\Manage\PriceTypes.cshtml" />
     <Content Include="Areas\Admin\Views\Manage\PriceType.cshtml" />
     <Content Include="Areas\Admin\Views\Manage\Prices.cshtml" />
+    <Content Include="Resources\cart.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Scripts\angular-mocks.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
@@ -420,7 +423,7 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Catalog\Catalog.cshtml" />
-    <Content Include="Views\Cart\Index.cshtml" />
+    <Content Include="Views\Cart\Cart.cshtml" />
     <Content Include="Views\Service\SelectList.cshtml" />
   </ItemGroup>
   <ItemGroup>

@@ -6,9 +6,10 @@ using System.Web.Mvc;
 
 namespace Shop.Controllers
 {
+    [Authorize]
     public class CartController : Controller
     {
-        public ActionResult Index()
+        public ActionResult Cart()
         {
             return View();
         }

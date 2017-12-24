@@ -15,6 +15,8 @@
 @using (Html.BeginForm("SaveImage", "Manage",FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     <div class="panel panel-default panel-body">
+        
+        @Html.AntiForgeryToken()
 
         @Html.HiddenFor(m => m.ProductId)
 

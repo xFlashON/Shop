@@ -19,6 +19,7 @@ using Shop.Areas.Admin.Models;
 namespace Shop.Areas.Admin.Controllers
 {
     //[Authorize(Roles = "admin")]
+    [Authorize]
     public class ManageController : Controller
     {
         private IService blService;
