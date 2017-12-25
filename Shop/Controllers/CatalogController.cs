@@ -65,7 +65,7 @@ namespace Shop.Controllers
             if (product == null)
                 return HttpNotFound();
 
-            return View(product);
+            return PartialView(product);
         }
 
         [Authorize, HttpPost]
