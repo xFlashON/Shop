@@ -20,6 +20,11 @@ namespace DAL.Model
         public decimal Total { get; set; }
         public PaymentType PaymentType { get; set; }
 
+        [Required]
+        public string User { get; set; }
+
+        public string Comment { get; set; }
+
         public virtual ICollection<OrderRow> OrderRows { get; set; }
 
     }

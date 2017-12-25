@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using DAL.Interfaces;
 using DAL.Model;
 using System.ComponentModel.DataAnnotations;
+using System.Data.Odbc;
 using Servises.Models;
 
 namespace Servises.Interfaces
@@ -24,6 +25,13 @@ namespace Servises.Interfaces
         IEnumerable<News> GetNews(int? page);
         News GetNews(int newsId);
         void SaveNews(News news);
+
+        Order GetOpenOrder(string userName);
+        void SaveOrder(Order order);
+
+        void AddToCart(Product product);
+        void RemoveFromCart(Product product);
+
 
     }
 }

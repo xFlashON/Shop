@@ -1,4 +1,4 @@
-﻿html,body, .container {
+﻿html, body, .container {
     height: 100%
 }
 
@@ -37,4 +37,7 @@ textarea {
     max-width: 280px;
 }
 
-
+.ProductImage {
+    min-height: 200px;
+    max-height: 500px;
+}

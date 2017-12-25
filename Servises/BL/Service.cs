@@ -160,5 +160,30 @@ namespace Servises.BL
         {
             return DatabaseService.PriceTypeRepository.GetAll();
         }
+
+        public Exception SaveOrder(Order order)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Order GetOpenOrder(string userName)
+        {
+            throw new NotImplementedException();
+        }
+
+        void IService.SaveOrder(Order order)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddToCart(Product product)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RemoveFromCart(Product product)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

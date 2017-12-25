@@ -41,7 +41,7 @@
 
                     <div class="col-md-4">
                         <div class="thumbnail">
-                            <a href=@src target="_blank">
+                            <a href=@Url.Action("Product","Catalog", new { Area = "", productId =product.Id}) target="_blank">
                                 <img src=@src alt="@product.Name">
                                 <div class="caption">
                                     <p>@product.ShortDescription</p>

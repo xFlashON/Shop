@@ -425,6 +425,7 @@
     <Content Include="Views\Catalog\Catalog.cshtml" />
     <Content Include="Views\Cart\Cart.cshtml" />
     <Content Include="Views\Service\SelectList.cshtml" />
+    <Content Include="Views\Catalog\Product.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

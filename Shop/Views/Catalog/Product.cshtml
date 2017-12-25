@@ -1,0 +1,52 @@
+﻿@model Shop.Models.ProductViewModel
+
+@{
+    ViewBag.Title = "Карточка товара";
+}
+
+@if (Model != null)
+{
+    <div class="panel">
+        
+        <h2 class="page-header">@Model.Name</h2>
+        
+        <div class="panel-body">
+            
+            @{
+                var src = "#";
+
+                if (Model.ProductImageId != 0)
+                {
+                    src = Url.Action("GetImage", "Service", new { Area = "", imageId = Model.ProductImageId });
+                }
+            }
+            
+            <img class="ProductImage" src=@src alt="@Model.Name">
+            
+            <div><p>Описание товара: @Model.Description</p></div>
+
+        </div>
+        
+        <button onclick='AddToCart(@Model.Id)'>
+            <img src="~/Resources/cart.png" style="max-height: 30px" />
+            <b>Купить</b>
+        </button>
+        
+        <script>
+
+            function AddToCart(productId) {
+                $.ajax({
+                        type: "POST",
+                        url: "@Url.Action("AddToCart", "Catalog")",
+                    data: "productId= "+ productId,
+                    success: function(data){ 
+                        alert( "Товар добавлен в корзину");
+                    }
+                    });
+            }
+
+        </script>
+
+    </div>
+}
+

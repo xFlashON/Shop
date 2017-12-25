@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
@@ -51,6 +52,26 @@ namespace Shop.Controllers
             }
 
             return View(model);
+        }
+
+        public ActionResult Product(int? productId)
+        {
+
+            if (!productId.HasValue)
+                return RedirectToAction("Catalog", "Catalog");
+
+            var product = Mapper.Map<ProductViewModel>(blService.GetProduct((int)productId)) ;
+
+            if (product == null)
+                return HttpNotFound();
+
+            return View(product);
+        }
+
+        [Authorize, HttpPost]
+        public ActionResult AddToCart(int productId)
+        {
+            return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
     }
