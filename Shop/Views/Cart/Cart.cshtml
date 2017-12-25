@@ -3,35 +3,63 @@
     ViewBag.Title = "Cart";
 }
 
-<div ng-app="cart">
-    
-    <div class="jumbotron">
-        <table class="table table-bordered table-striped">
-            <caption>Товары в корзине</caption>
-            <tr>
-                <th>№</th>
-                <th>Товар</th>
-                <th>Количество</th>
-                <th>Цена</th>
-                <th>Сумма</th>
-            </tr>
+<div ng-app="cart" ng-controller="cartController">
+
+    <div class="panel panel-body" ng-switch="models.mode">
+        <div ng-switch-when="cart">
+            <div class="jumbotron">
+                <table class="table table-bordered table-striped">
+                    <caption>Товары в корзине</caption>
+                    <tr>
+                        <th>№</th>
+                        <th>Товар</th>
+                        <th>Количество</th>
+                        <th>Цена</th>
+                        <th>Сумма</th>
+                    </tr>
             
-            <tr ng-repeat="for rowData in models.order">
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                    <tr ng-repeat="for rowData in models.orderRows">
+                        <td>{{rowData.Number}}</td>
+                        <td>{{rowData.ProductName}}</td>
+                        <td>{{rowData.Qty}}</td>
+                        <td>{{rowData.Price}}</td>
+                        <td>{{rowData.Amount}}</td>
 
-            </tr>
+                    </tr>
 
-        </table>
+                    <tr>
+                        <td colspan="4">Итого:</td>
+                        <td>{{models.Total}}</td>
+
+                    </tr>
+
+
+                </table>
+                                
+                <button ng-click="gotoPaymentCmd()"> Перейти к оплате </button>
+                
+            </div>
+        </div>
+
+        <div ng-switch-when="order">
+        
+            <h2>Заказ № {{models.orderNumber}} </h2>
+            <b> К оплате {{models.Total}}</b>
+            <br>
+            <button ng-click="paymentCmd"> Оплата </button>
+
+        </div>
+        
+        <div ng-switch-default>
+            
+            <h2>Нет товаров в корзине!</h2>
+
+        </div>
+
+
     </div>
-    
-    
 
-
-    
     @Scripts.Render("~/bundles/cart")
+
 </div>
 

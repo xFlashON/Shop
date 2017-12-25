@@ -31,7 +31,7 @@ namespace Shop
                 "~/Scripts/angular.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/cart")
-                .IncludeDirectory("~/Scripts/Controller", "*.js")
+                .IncludeDirectory("~/Scripts/Controllers", "*.js")
                 .Include("~/Scripts/cart.js"));
 
         }
