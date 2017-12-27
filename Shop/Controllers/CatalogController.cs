@@ -68,10 +68,20 @@ namespace Shop.Controllers
             return PartialView(product);
         }
 
-        [Authorize, HttpPost]
+        [HttpPost]
         public ActionResult AddToCart(int productId)
         {
-            return new HttpStatusCodeResult(HttpStatusCode.OK);
+            if (User.Identity.IsAuthenticated) {
+
+                blService.AddToCart(blService.GetProduct(productId),User.Identity.Name);
+
+                return new HttpStatusCodeResult(200);
+
+            }
+            else
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotModified);
+            }
         }
 
     }

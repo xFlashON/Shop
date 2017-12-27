@@ -161,27 +161,45 @@ namespace Servises.BL
             return DatabaseService.PriceTypeRepository.GetAll();
         }
 
-        public Exception SaveOrder(Order order)
-        {
-            throw new NotImplementedException();
-        }
-
         public Order GetOpenOrder(string userName)
         {
-            throw new NotImplementedException();
+
+
+            var order = databaseService.OrderRepository.Get(o => o.User == userName && o.Payed == false).FirstOrDefault();
+            if (order != null)
+                return order;
+
+            return new Order() { Date = DateTime.Now, User = userName };
+
         }
 
-        void IService.SaveOrder(Order order)
+        public void SaveOrder(Order order)
         {
-            throw new NotImplementedException();
+
+            if (order.Id==0)
+                DatabaseService.OrderRepository.Create(order);
+            else
+                DatabaseService.OrderRepository.Update(order);
+
+            DatabaseService.Save();
         }
 
-        public void AddToCart(Product product)
+        public void AddToCart(Product product, string userName)
         {
-            throw new NotImplementedException();
+
+            var order = GetOpenOrder(userName);
+            var row = order.OrderRows?.FirstOrDefault(r => r?.Product.Id == product.Id);
+
+            if (row != null)
+                row.Qty += 1;
+            else
+                order.OrderRows.Add(new OrderRow() { Product = product, Qty = 1 });
+
+            SaveOrder(order);
+
         }
 
-        public void RemoveFromCart(Product product)
+        public void RemoveFromCart(Product product, string userName)
         {
             throw new NotImplementedException();
         }

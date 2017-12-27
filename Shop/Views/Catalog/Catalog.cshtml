@@ -113,18 +113,35 @@
         $.ajax({
             type: "POST",
             url: "@Url.Action("AddToCart", "Catalog")",
-            data: "productId= "+ productId,
-            success: function(data) {
+            data: "productId= " + productId,
+            success: function(p1,p2) {
 
-                var message = $('#alertMessage');
-                message.addClass('alert alert-success');
-                message.html("Товар добавлен в корзину!");
+                if (p2 === 'success') {
 
-                setTimeout( function() {
                     var message = $('#alertMessage');
-                    message.removeClass('alert alert-success');
-                    message[0].innerHTML='';
-                }, 3000);
+                    message.addClass('alert alert-success');
+                    message.html("Товар добавлен в корзину!");
+
+                    setTimeout(function () {
+                        var message = $('#alertMessage');
+                        message.removeClass('alert alert-success');
+                        message[0].innerHTML = '';
+                    }, 3000);
+
+                }
+                else {
+
+                    var message = $('#alertMessage');
+                    message.addClass('alert alert-info');
+                    message.html("Не удалось добавить товар в корзину, возможно Вы не авторизованы!");
+
+                    setTimeout(function () {
+                        var message = $('#alertMessage');
+                        message.removeClass('alert alert-info');
+                        message[0].innerHTML = '';
+                    }, 3000);
+
+                }
             }
         });
     }
