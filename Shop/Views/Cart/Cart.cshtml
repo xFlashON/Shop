@@ -18,18 +18,18 @@
                         <th>Сумма</th>
                     </tr>
             
-                    <tr ng-repeat="for rowData in models.orderRows">
-                        <td>{{rowData.Number}}</td>
-                        <td>{{rowData.ProductName}}</td>
-                        <td>{{rowData.Qty}}</td>
-                        <td>{{rowData.Price}}</td>
-                        <td>{{rowData.Amount}}</td>
+                    <tr ng-repeat="rowData in models.orderRows">
+                        <td>{{rowData.rowId}}</td>
+                        <td>{{rowData.productName}}</td>
+                        <td>{{rowData.qty}}</td>
+                        <td>{{rowData.price}}</td>
+                        <td>{{rowData.sum}}</td>
 
                     </tr>
 
                     <tr>
                         <td colspan="4">Итого:</td>
-                        <td>{{models.Total}}</td>
+                        <td>{{models.total}}</td>
 
                     </tr>
 

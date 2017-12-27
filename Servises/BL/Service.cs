@@ -176,10 +176,13 @@ namespace Servises.BL
         public void SaveOrder(Order order)
         {
 
-            if (order.Id==0)
+            if (order.Id == 0)
                 DatabaseService.OrderRepository.Create(order);
             else
+            {
                 DatabaseService.OrderRepository.Update(order);
+            }
+                
 
             DatabaseService.Save();
         }
@@ -193,7 +196,7 @@ namespace Servises.BL
             if (row != null)
                 row.Qty += 1;
             else
-                order.OrderRows.Add(new OrderRow() { Product = product, Qty = 1 });
+                order.OrderRows.Add(new OrderRow() {OrderId = order.Id, ProductId = product.Id, Qty = 1 });
 
             SaveOrder(order);
 

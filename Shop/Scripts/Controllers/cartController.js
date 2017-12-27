@@ -1,14 +1,24 @@
-﻿var cartController = function ($scope) {
+﻿var cartController = function ($scope, $http) {
     $scope.models = {
         mode: 'cart',
-        orderRows:[]
+        orderRows: undefined,
+        total: 0
+    };
 
-};
+    $http.get("GetOrder").then(function(response) {
 
-    $scope.gotoPaymentCmd = function() {
+        if (response.data !== undefined) {
+            $scope.models.orderRows = response.data.orderRows;
+            $scope.models.total = response.data.total;
+        }
+
+    });
+
+    $scope.gotoPaymentCmd = function () {
         $scope.models.mode = 'order';
 
     }
+
 }
 
-cartController.$inject = ['$scope'];
+cartController.$inject = ['$scope', '$http'];

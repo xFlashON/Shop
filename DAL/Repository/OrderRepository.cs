@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq.Expressions;
 using DAL.Model;
 using DAL.Interfaces;
@@ -14,6 +15,21 @@ namespace DAL.Repository
         public override Order Get(int id)
         {
             return context.OrderSet.AsNoTracking().Include("OrderRows").FirstOrDefault(i => i.Id == id);
+        }
+
+        public override void Update(Order item)
+        {
+            foreach (var orderRow in item.OrderRows)
+            {
+                if(orderRow.Id==0)
+                    context.Entry(orderRow).State = EntityState.Added;
+                else
+                    context.Entry(orderRow).State = EntityState.Modified;
+
+            }
+
+            base.Update(item);
+
         }
     }
 }
