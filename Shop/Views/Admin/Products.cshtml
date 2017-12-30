@@ -26,7 +26,7 @@
                 <td>@product.Id</td>
                 <td>@product.Name</td>
                 <td>
-                    <a href=@Url.Action("LoadImage", "Manage",new {productId = product.Id })>
+                    <a href=@Url.Action("LoadImage", "Admin",new {productId = product.Id })>
                         @if (product.ProductImageId != null)
                         {
                         <img src=@Url.Action("GetImage", "Service", new { Area = "", imageId = product.ProductImageId }) alt="@product.Name" style="max-height:40px" />

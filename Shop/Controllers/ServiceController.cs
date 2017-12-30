@@ -21,13 +21,13 @@ namespace Shop.Controllers
         public ActionResult GetImage(int? imageId)
         {
 
-            if (imageId == null)
-                return HttpNotFound();
+            if ((imageId ?? 0) == 0)
+                return File("~\\Resources\\product_image_placeholder.png", "image/png");
 
             var image = blService.GetImage((int)imageId);
 
             if (image == null)
-                return HttpNotFound();
+                return File("~\\Resources\\product_image_placeholder.png", "image/png");
 
             return File(image.ImageData, image.ImageMimeType);
 

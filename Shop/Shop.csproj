@@ -211,9 +211,8 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
-    <Compile Include="Areas\Admin\Controllers\ManageController.cs" />
-    <Compile Include="Areas\Admin\Models\DeleteConfirmationViewModel.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Models\DeleteConfirmationViewModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\CatalogController.cs" />
@@ -293,7 +292,6 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Areas\Admin\Views\web.config" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -302,20 +300,22 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
-    <Content Include="Areas\Admin\Views\Manage\References.cshtml" />
-    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Admin\Views\Manage\ProductTypes.cshtml" />
-    <Content Include="Areas\Admin\Views\Manage\Products.cshtml" />
-    <Content Include="Areas\Admin\Views\Manage\ProductType.cshtml" />
-    <Content Include="Areas\Admin\Views\Manage\EditProduct.cshtml" />
-    <Content Include="Areas\Admin\Views\Manage\LoadImage.cshtml" />
-    <Content Include="Areas\Admin\Views\Manage\News.cshtml" />
-    <Content Include="Areas\Admin\Views\Manage\EditNews.cshtml" />
-    <Content Include="Areas\Admin\Views\Manage\AddNews.cshtml" />
-    <Content Include="Areas\Admin\Views\Manage\DeleteElement.cshtml" />
-    <Content Include="Areas\Admin\Views\Manage\PriceTypes.cshtml" />
-    <Content Include="Areas\Admin\Views\Manage\PriceType.cshtml" />
-    <Content Include="Areas\Admin\Views\Manage\Prices.cshtml" />
+    <Content Include="Resources\product_image_placeholder.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\Admin\References.cshtml" />
+    <Content Include="Views\Admin\ProductTypes.cshtml" />
+    <Content Include="Views\Admin\Products.cshtml" />
+    <Content Include="Views\Admin\ProductType.cshtml" />
+    <Content Include="Views\Admin\EditProduct.cshtml" />
+    <Content Include="Views\Admin\LoadImage.cshtml" />
+    <Content Include="Views\Admin\News.cshtml" />
+    <Content Include="Views\Admin\EditNews.cshtml" />
+    <Content Include="Views\Admin\AddNews.cshtml" />
+    <Content Include="Views\Admin\DeleteElement.cshtml" />
+    <Content Include="Views\Admin\PriceTypes.cshtml" />
+    <Content Include="Views\Admin\PriceType.cshtml" />
+    <Content Include="Views\Admin\Prices.cshtml" />
     <Content Include="Resources\cart.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -429,10 +429,12 @@
     <Content Include="Views\Cart\Cart.cshtml" />
     <Content Include="Views\Service\SelectList.cshtml" />
     <Content Include="Views\Catalog\Product.cshtml" />
+    <Content Include="Views\Catalog\News.cshtml" />
+    <Content Include="Views\Catalog\ProductTypes.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Admin\Views\Shared\" />
+    <Folder Include="Areas\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

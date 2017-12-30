@@ -16,7 +16,7 @@ namespace Shop
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new {controller = "Catalog", action = "Catalog", id = UrlParameter.Optional},
+                defaults: new {controller = "Catalog", action = "News", id = UrlParameter.Optional},
                 namespaces: new string[] {"Shop.Controllers"});
 
         }

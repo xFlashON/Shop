@@ -18,10 +18,10 @@
     $(document).ready(function () {
 
         $("#jqGrid").jqGrid({
-            url: '@Url.Action("GetPrices","Manage")',
+            url: '@Url.Action("GetPrices","Admin")',
             mtype: "GET",
             datatype: "json",
-            editurl: '@Url.Action("EditPrice", "Manage", new { Area = "Admin"})',
+            editurl: '@Url.Action("EditPrice", "Admin", new { Area = "Admin"})',
             colModel: [
 
                 {

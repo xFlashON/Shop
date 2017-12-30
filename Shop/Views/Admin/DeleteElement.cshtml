@@ -5,7 +5,7 @@
 }
 
 
-@using (Html.BeginForm(Model.ActionName, "Manage", FormMethod.Post))
+@using (Html.BeginForm(Model.ActionName, "Admin", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
     @Html.HiddenFor(m => m.DeletedId);

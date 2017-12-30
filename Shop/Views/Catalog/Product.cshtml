@@ -6,34 +6,27 @@
 
 @if (Model != null)
 {
-    <div class="panel">
-        
-        <h2 class="page-header">@Model.Name</h2>
-        
-        <div class="panel-body">
-            
-            @{
-                var src = "#";
+<div class="panel">
 
-                if (Model.ProductImageId != 0)
-                {
-                    src = Url.Action("GetImage", "Service", new { Area = "", imageId = Model.ProductImageId });
-                }
-            }
-            
-            <img class="ProductImage" src=@src alt="@Model.Name">
-            
-            <div><p>Описание товара: @Model.Description</p></div>
+    <h2 class="page-header">@Model.Name</h2>
 
-        </div>
-        
-        <button onclick='AddToCart(@Model.Id)'>
-            <img src="~/Resources/cart.png" style="max-height: 30px" />
-            <b>Купить</b>
-        </button>
-        
-        <div id ="alertMessage"></div>
+    <div class="panel-body">
+
+        <p>@Model.ShortDescription</p>
+
+        <img class="ProductImage" src=@Url.Action("GetImage", "Service", new { Area = "", imageId = Model.ProductImageId }) alt="@Model.Name">
+
+        <div><p>Описание товара: @Model.Description</p></div>
 
     </div>
+
+    <button onclick='AddToCart(@Model.Id)'>
+        <img src="~/Resources/cart.png" style="max-height: 30px" />
+        <b>Купить</b>
+    </button>
+
+    <div id="alertMessage"></div>
+
+</div>
 }
 

@@ -206,5 +206,17 @@ namespace Servises.BL
         {
             throw new NotImplementedException();
         }
+
+        public IEnumerable<News> GetNewsList(int page)
+        {
+
+            int pageSize = 4;
+
+            page = Math.Max(page, 1);
+
+            return databaseService.NewsRepository.GetAll().OrderByDescending(n => n.Date).Skip((page - 1) * pageSize).Take(pageSize);
+
+
+        }
     }
 }

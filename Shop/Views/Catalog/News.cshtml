@@ -1,0 +1,40 @@
+﻿@model Shop.Models.NewsListViewModel
+
+
+<div class="container">
+
+    <div class="col-md-3">
+
+        @{Html.RenderAction("ProductTypes", "Catalog");}
+
+    </div>
+
+    <div class="col-md-9">
+
+        @if (Model != null)
+        {
+            foreach (var news in Model.NewsList)
+            {
+                <div class="panel panel-primary" style="min-height:200px !important">
+                    <div class="panel-heading" style="min-height:50px !important">
+                        <span class="col-md-2">@news.Date.ToShortDateString()</span>
+                        <span class="col-md-10">@news.Title</span>
+                    </div>
+                    <div class="panel-body">
+                        @Html.Raw(news.Content)
+                    </div>
+                </div>
+            }
+
+            <div class="pager">
+                <ul>
+                    <li>@Html.ActionLink("Назад", "News", new { page = Math.Max(1, Model.CurrentPage - 1) })</li>
+                    <li>@Html.ActionLink("Дальше", "News", new { page = Model.CurrentPage + 1 })</li>
+                </ul>
+            </div>
+        }
+    </div>
+
+</div>
+
+

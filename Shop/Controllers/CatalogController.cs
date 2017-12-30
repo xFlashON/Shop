@@ -21,7 +21,6 @@ namespace Shop.Controllers
             blService = service;
         }
         
-        // GET: Catalog
         public ActionResult Catalog(int? groupId, int? page)
         {
             ViewBag.Title = "Каталог товаров";
@@ -35,7 +34,10 @@ namespace Shop.Controllers
             if (groupId != null || page != null)
                 products = blService.GetProducts(groupId, page);
             else
-                products = blService.GetAllProducts();
+            {
+                var random = new Random();
+                products = blService.GetAllProducts().OrderBy(p => random.Next()).Take(9);
+            }
 
             model.Products = Mapper.Map<IEnumerable<Product>, List<ProductViewModel>>(products);
 
@@ -52,6 +54,13 @@ namespace Shop.Controllers
             }
 
             return View(model);
+        }
+
+        public ActionResult ProductTypes()
+        {
+
+            return PartialView(Mapper.Map<IEnumerable<ProductTypeViewModel>>(blService.GetProductTypes()));
+
         }
 
         public ActionResult Product(int? productId)
@@ -82,6 +91,14 @@ namespace Shop.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.NotModified);
             }
+        }
+
+        [HttpGet]
+        public ActionResult News (int? page)
+        {
+            var newsList = blService.GetNewsList(page??0);
+
+            return View(new NewsListViewModel() { NewsList=Mapper.Map<IEnumerable<NewsViewModel>>(newsList), CurrentPage=page??1});
         }
 
     }

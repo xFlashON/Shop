@@ -1,12 +1,12 @@
-﻿@model Shop.Models.PriceTypeViewModel
+﻿@model Shop.Models.ProductTypeViewModel
 
 @{
-    ViewBag.Title = "PriceType";
+    ViewBag.Title = "ProductType";
 }
 
-<h2>Тип цен</h2>
+<h2>ProductType</h2>
 
-@using (Html.BeginForm("SavePriceType", "Manage", FormMethod.Post))
+@using (Html.BeginForm("SaveProductType", "Admin", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
     
@@ -24,7 +24,8 @@
         </div>
         @Html.EditorFor(m => m.Name)
         @Html.ValidationMessageFor(m => m.Name)
-    </div>
+        </div>
     
     <input type="submit" value="Сохранить" />
 }
+

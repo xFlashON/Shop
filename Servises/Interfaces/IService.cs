@@ -24,12 +24,12 @@ namespace Servises.Interfaces
         ProductImage GetImage(int imageId);
         IEnumerable<News> GetNews(int? page);
         News GetNews(int newsId);
+        IEnumerable<News> GetNewsList(int page);
         void SaveNews(News news);
         Order GetOpenOrder(string userName);
         void SaveOrder(Order order);
         void AddToCart(Product product, string userName);
         void RemoveFromCart(Product product, string userName);
-
 
     }
 }

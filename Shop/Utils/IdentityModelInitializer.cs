@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Shop.Utils
 {
-    public class IdentityModelInitializer: DropCreateDatabaseIfModelChanges<ApplicationDbContext>
+    public class IdentityModelInitializer: CreateDatabaseIfNotExists<ApplicationDbContext>
     {
         protected override void Seed(ApplicationDbContext context)
         {

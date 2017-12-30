@@ -1,0 +1,17 @@
+﻿@model IEnumerable<Shop.Models.ProductTypeViewModel>
+
+@{ Layout = null;}
+
+@if (Model != null)
+{
+    <ul class="nav nav-pills nav-stacked">
+        <li class="active">@Html.ActionLink("Каталог","Catalog", "Catalog")</li>
+        @if (Model != null)
+        {
+            foreach (var pType in @Model)
+            {
+                <li>@Html.ActionLink(pType.Name, "Catalog", new { groupId = pType.Id })</li>
+            }
+        }
+    </ul>
+}

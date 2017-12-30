@@ -20,6 +20,7 @@ namespace Shop.Utils
                 cfg.CreateMap<ProductViewModel,Product>();
                 cfg.CreateMap<ProductTypeViewModel, ProductType>();
                 cfg.CreateMap<ProductImageViewModel, ProductImage>();
+
             });
         }
     }

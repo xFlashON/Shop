@@ -20,11 +20,11 @@ namespace Shop.Areas.Admin.Controllers
 {
     //[Authorize(Roles = "admin")]
     [Authorize]
-    public class ManageController : Controller
+    public class AdminController : Controller
     {
         private IService blService;
 
-        public ManageController(IService service)
+        public AdminController(IService service)
         {
             blService = service;
         }
