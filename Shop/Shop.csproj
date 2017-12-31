@@ -431,6 +431,7 @@
     <Content Include="Views\Catalog\Product.cshtml" />
     <Content Include="Views\Catalog\News.cshtml" />
     <Content Include="Views\Catalog\ProductTypes.cshtml" />
+    <Content Include="Views\Admin\Users.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

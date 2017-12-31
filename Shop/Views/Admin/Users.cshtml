@@ -1,0 +1,32 @@
+﻿@model IEnumerable<Shop.Models.RegisterViewModel>
+
+@if (Model != null)
+{
+<table class="table table-bordered">
+    <tr>
+
+        <th>Пользователь</th>
+        <th>Администратор</th>
+        <th>Тип цены</th>
+        <th></th>
+    </tr>
+    @foreach (var user in Model)
+    {
+    <tr>
+        <td>
+            @user.Email
+        </td>
+        <td>
+            @user.IsAdmin
+        </td>
+        <td>
+            @user.PriceTypeId
+        </td>
+        <td>
+            @Html.ActionLink("изменить", "EditUser", new { user = user.Email})
+        </td>
+    </tr>
+    }
+</table>
+}
+

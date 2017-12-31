@@ -15,10 +15,14 @@ using System.Web.Helpers;
 using Microsoft.Ajax.Utilities;
 using Newtonsoft.Json;
 using Shop.Areas.Admin.Models;
+using DAL.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity;
+using System.Data.Entity.SqlServer;
 
 namespace Shop.Areas.Admin.Controllers
 {
-    //[Authorize(Roles = "admin")]
+    //[Authorize(Roles = "Admin")]
     [Authorize]
     public class AdminController : Controller
     {
@@ -313,7 +317,7 @@ namespace Shop.Areas.Admin.Controllers
             {
                 case "add":
                     {
-                        if (ProductName.HasValue && PriceTypeName.HasValue && Price!=null)
+                        if (ProductName.HasValue && PriceTypeName.HasValue && Price != null)
                         {
                             var product = blService.GetProduct((int)ProductName);
                             var priceType = blService.DatabaseService.PriceTypeRepository.Get((int)PriceTypeName);
@@ -333,7 +337,7 @@ namespace Shop.Areas.Admin.Controllers
                             {
                                 PriceTypeId = priceType.Id,
                                 ProductId = product.Id,
-                                CurrentPrice = Decimal.Parse(Price.Replace(".",","))
+                                CurrentPrice = Decimal.Parse(Price.Replace(".", ","))
                             };
 
                             blService.DatabaseService.PriceRepository.Create(newPrice);
@@ -352,7 +356,7 @@ namespace Shop.Areas.Admin.Controllers
                 case "edit":
                     {
 
-                        if (Id.HasValue && ProductName.HasValue && PriceTypeName.HasValue && Price!=null)
+                        if (Id.HasValue && ProductName.HasValue && PriceTypeName.HasValue && Price != null)
                         {
 
                             var product = blService.GetProduct((int)ProductName);
@@ -416,14 +420,34 @@ namespace Shop.Areas.Admin.Controllers
                             return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                         }
 
-
-
-
                         break;
                     }
             }
 
             return new HttpStatusCodeResult(HttpStatusCode.MethodNotAllowed, "Bad command");
+        }
+
+        [HttpGet]
+        public ActionResult Users()
+        {
+
+            var context = new ApplicationDbContext();
+
+            var userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(context));
+
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+
+            var adminRole = roleManager.FindByName("Admin");
+
+            var usersList = userManager.Users.Select(u => new RegisterViewModel()
+            {
+                Email = u.Email,
+                //PriceTypeId = u.Claims.FirstOrDefault(c => c.ClaimType == "PriceTypeId") != null ? u.Claims.FirstOrDefault(c => c.ClaimType == "PriceTypeId").ClaimValue : "1",
+                IsAdmin = u.Roles.FirstOrDefault(r => r.RoleId == adminRole.Id) != null
+            });
+
+            return View(usersList);
+
         }
 
     }

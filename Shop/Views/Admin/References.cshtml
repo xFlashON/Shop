@@ -6,27 +6,32 @@
 <h2>Панель управления</h2>
 
 <table class="table table-bordered">
-   
+
+    <tr>
+        <td>Пользователи</td>
+        <td>@Html.ActionLink("Редактировать", "Users")</td>
+    </tr>
+
     <tr>
         <td>Новости</td>
         <td>@Html.ActionLink("Редактировать", "News")</td>
     </tr>
-    
+
     <tr>
         <td>Типы номенклатуры</td>
-        <td>@Html.ActionLink("Редактировать","ProductTypes")</td>
+        <td>@Html.ActionLink("Редактировать", "ProductTypes")</td>
     </tr>
 
     <tr>
         <td>Номенклатура</td>
         <td>@Html.ActionLink("Редактировать", "Products")</td>
     </tr>
-    
+
     <tr>
         <td>Типы цен</td>
         <td>@Html.ActionLink("Редактировать", "PriceTypes")</td>
     </tr>
-    
+
     <tr>
         <td>Цены</td>
         <td>@Html.ActionLink("Редактировать", "Prices")</td>
