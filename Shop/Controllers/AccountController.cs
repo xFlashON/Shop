@@ -157,7 +157,7 @@ namespace Shop.Controllers
                 if (result.Succeeded)
                 {
 
-                    if(!UserManager.Users.Any())
+                    if(UserManager.Users.Count()==1)
                         await UserManager.AddToRoleAsync(user.Id, "Admin");
 
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);

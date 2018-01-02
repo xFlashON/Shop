@@ -439,14 +439,33 @@ namespace Shop.Areas.Admin.Controllers
 
             var adminRole = roleManager.FindByName("Admin");
 
-            var usersList = userManager.Users.Select(u => new RegisterViewModel()
+            var userPriceTypes = userManager.Users.AsEnumerable().Select(u => new
+            {
+                user = u,
+                PriceTypeId = u.Claims.FirstOrDefault(c => c.ClaimType == "PriceTypeId") != null ? u.Claims.FirstOrDefault(c => c.ClaimType == "PriceTypeId").ClaimValue : "1"
+            }).Join(blService.DatabaseService.PriceTypeRepository.GetAll().Select(p=>new {PriceTypeId = p.Id.ToString(), PriceType = p}),
+            c=>c.PriceTypeId,
+            p=>p.PriceTypeId,
+            (c,p)=>new { user = c.user, priceType = p.PriceType});
+
+            var usersList = userManager.Users.AsEnumerable().Join(userPriceTypes,u=>u.Id,pt=>pt.user.Id,(u,pt) => new UserViewModel()
             {
                 Email = u.Email,
-                //PriceTypeId = u.Claims.FirstOrDefault(c => c.ClaimType == "PriceTypeId") != null ? u.Claims.FirstOrDefault(c => c.ClaimType == "PriceTypeId").ClaimValue : "1",
+                PriceType = pt.priceType,
                 IsAdmin = u.Roles.FirstOrDefault(r => r.RoleId == adminRole.Id) != null
             });
 
             return View(usersList);
+
+        }
+
+        private int parseString (string id)
+        {
+            int result = 0;
+
+            Int32.TryParse(id, out result);
+
+            return result;
 
         }
 

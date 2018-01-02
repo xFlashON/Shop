@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Shop.Models.RegisterViewModel>
+﻿@model IEnumerable<Shop.Models.UserViewModel>
 
 @if (Model != null)
 {
@@ -17,13 +17,13 @@
             @user.Email
         </td>
         <td>
-            @user.IsAdmin
+            @Html.CheckBoxFor(u=>user.IsAdmin,new { disabled = "disabled" })
         </td>
         <td>
-            @user.PriceTypeId
+            @user.PriceType.Name
         </td>
         <td>
-            @Html.ActionLink("изменить", "EditUser", new { user = user.Email})
+            @Html.ActionLink("Изменить", "EditUser", new { user = user.Email})
         </td>
     </tr>
     }
