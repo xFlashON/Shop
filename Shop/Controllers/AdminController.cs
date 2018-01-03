@@ -19,11 +19,11 @@ using DAL.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity;
 using System.Data.Entity.SqlServer;
+using System.Security.Claims;
 
 namespace Shop.Areas.Admin.Controllers
 {
-    //[Authorize(Roles = "Admin")]
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         private IService blService;
@@ -431,43 +431,131 @@ namespace Shop.Areas.Admin.Controllers
         public ActionResult Users()
         {
 
-            var context = new ApplicationDbContext();
-
-            var userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(context));
-
-            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
-
-            var adminRole = roleManager.FindByName("Admin");
-
-            var userPriceTypes = userManager.Users.AsEnumerable().Select(u => new
+            using (var context = new ApplicationDbContext())
             {
-                user = u,
-                PriceTypeId = u.Claims.FirstOrDefault(c => c.ClaimType == "PriceTypeId") != null ? u.Claims.FirstOrDefault(c => c.ClaimType == "PriceTypeId").ClaimValue : "1"
-            }).Join(blService.DatabaseService.PriceTypeRepository.GetAll().Select(p=>new {PriceTypeId = p.Id.ToString(), PriceType = p}),
-            c=>c.PriceTypeId,
-            p=>p.PriceTypeId,
-            (c,p)=>new { user = c.user, priceType = p.PriceType});
 
-            var usersList = userManager.Users.AsEnumerable().Join(userPriceTypes,u=>u.Id,pt=>pt.user.Id,(u,pt) => new UserViewModel()
-            {
-                Email = u.Email,
-                PriceType = pt.priceType,
-                IsAdmin = u.Roles.FirstOrDefault(r => r.RoleId == adminRole.Id) != null
-            });
+                var userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(context));
 
-            return View(usersList);
+                var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+
+                var adminRole = roleManager.FindByName("Admin");
+
+                var userPriceTypes = userManager.Users.AsEnumerable().Select(u => new
+                {
+                    user = u,
+                    PriceTypeId = u.Claims.FirstOrDefault(c => c.ClaimType == "PriceTypeId") != null ? u.Claims.FirstOrDefault(c => c.ClaimType == "PriceTypeId").ClaimValue : "1"
+                }).Join(blService.DatabaseService.PriceTypeRepository.GetAll().Select(p => new { PriceTypeId = p.Id.ToString(), PriceType = p }),
+                c => c.PriceTypeId,
+                p => p.PriceTypeId,
+                (c, p) => new { user = c.user, priceType = p.PriceType });
+
+                var usersList = userManager.Users.AsEnumerable().Join(userPriceTypes, u => u.Id, pt => pt.user.Id, (u, pt) => new UserViewModel()
+                {
+                    Email = u.Email,
+                    PriceType = pt.priceType,
+                    IsAdmin = u.Roles.FirstOrDefault(r => r.RoleId == adminRole.Id) != null
+                });
+
+                return View(usersList.ToList());
+            }
 
         }
 
-        private int parseString (string id)
+      [HttpGet]
+      public ActionResult EditUser (string Email)
         {
-            int result = 0;
 
-            Int32.TryParse(id, out result);
+            if(Email==null)
+                return new HttpNotFoundResult();
 
-            return result;
+
+            using (var context = new ApplicationDbContext())
+            {
+
+                var userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(context));
+                var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+
+                var user = userManager.FindByEmail(Email);
+
+                if (user == null)
+                {
+                    return new HttpNotFoundResult();
+                }
+
+                var priceTypeId = 1;
+
+                Int32.TryParse(user.Claims.FirstOrDefault(c => c.ClaimType == "PriceTypeId")?.ClaimValue ?? "1", out priceTypeId);
+
+                var adminRole = roleManager.FindByName("Admin");
+
+                var userViewModel = new UserViewModel()
+                {
+                    Email = user.Email,
+                    PriceTypeId = priceTypeId,
+                    IsAdmin = user.Roles.Any(r => r.RoleId == adminRole.Id),
+                    PriceTypes = new SelectList(blService.GetPriceTypes(), "Id", "Name")
+                };
+
+            return View(userViewModel);
+
+            }
+
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SaveUser(UserViewModel model)
+        {
+
+            if (!ModelState.IsValid)
+            {
+                return View("EditUser", model);
+            }
+
+            using (var context = new ApplicationDbContext())
+            {
+
+                var userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(context));
+                var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+
+                var user = userManager.FindByEmail(model.Email);
+
+                if (user == null)
+                {
+                    return new HttpNotFoundResult();
+                }
+
+                var isAdmin = userManager.IsInRole(user.Id,"Admin");
+
+                if(model.IsAdmin && !isAdmin)
+                {
+                    userManager.AddToRoles(user.Id, "Admin");
+                }
+                else if (!model.IsAdmin && isAdmin)
+                {
+
+                    if(roleManager.Roles.First(r=>r.Name=="Admin").Users.Count()>1)
+                        userManager.RemoveFromRoles(user.Id, "Admin");
+
+                }
+
+                var claim = user.Claims.FirstOrDefault(c => c.ClaimType == "PriceTypeId");
+
+                if (claim != null)
+                {
+                    claim.ClaimValue = model.PriceTypeId.ToString();
+                    userManager.Update(user);
+                }
+                else { 
+                    userManager.AddClaim(user.Id, new System.Security.Claims.Claim("PriceTypeId", model.PriceTypeId.ToString()));
+                }
+
+            }
+
+            return RedirectToAction("Users");
 
         }
 
     }
+
 }

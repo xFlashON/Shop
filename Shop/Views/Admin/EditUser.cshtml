@@ -1,0 +1,51 @@
+﻿@model Shop.Models.UserViewModel
+
+@{
+    ViewBag.Title = "Редактирование пользователя";
+}
+
+@if (Model != null)
+{
+    using (Html.BeginForm("SaveUser", "Admin", FormMethod.Post))
+    {
+
+        @Html.AntiForgeryToken()
+
+        <div class="panel panel-default panel-body">
+
+            <div class="form-group">
+                <div class="col-xs-2">
+                    @Html.DisplayNameFor(m => m.Email)
+                </div>
+                <input type="text" id="Email" name="Email" required readonly value="@Model.Email" />
+
+            </div>
+
+            <div class="form-group">
+
+                <div class="col-xs-2">
+                    @Html.DisplayNameFor(m => m.IsAdmin)
+                </div>
+
+                @Html.CheckBoxFor(m => m.IsAdmin)
+
+            </div>
+
+            <div class="form-group">
+
+                <div class="col-xs-2">
+                    @Html.DisplayNameFor(m => m.PriceType)
+                </div>
+
+                @Html.DropDownListFor(m => m.PriceTypeId, Model.PriceTypes)
+
+            </div>
+
+            <input type="submit" value="Сохранить">
+
+        </div>
+
+    }
+
+}
+
