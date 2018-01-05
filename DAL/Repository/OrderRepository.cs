@@ -21,7 +21,7 @@ namespace DAL.Repository
         {
             foreach (var orderRow in item.OrderRows)
             {
-                if(orderRow.Id==0)
+                if (orderRow.Id == 0)
                     context.Entry(orderRow).State = EntityState.Added;
                 else
                     context.Entry(orderRow).State = EntityState.Modified;

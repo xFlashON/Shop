@@ -100,11 +100,27 @@
 
     }
 
-    function AddToCart(productId) {
+    function AddToCart(productId, price) {
+
+        if (price === 0) {
+
+            var message = $('#alertMessage');
+            message.addClass('alert alert-info');
+            message.html("Не удалось добавить товар в корзину, еще не установлена цена!");
+
+            setTimeout(function () {
+                var message = $('#alertMessage');
+                message.removeClass('alert alert-info');
+                message[0].innerHTML = '';
+            }, 3000);
+
+            return;
+        }
+
         $.ajax({
             type: "POST",
             url: "@Url.Action("AddToCart", "Catalog")",
-            data: "productId= " + productId,
+            data: "productId= " + productId + "&price="+price,
             success: function(p1,p2) {
 
                 if (p2 === 'success') {

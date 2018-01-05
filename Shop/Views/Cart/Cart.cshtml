@@ -17,42 +17,52 @@
                         <th>Цена</th>
                         <th>Сумма</th>
                     </tr>
-            
+
                     <tr ng-repeat="rowData in models.orderRows">
                         <td>{{rowData.rowId}}</td>
                         <td>{{rowData.productName}}</td>
-                        <td>{{rowData.qty}}</td>
+                        <td><input type="number" min="0" ng-model="rowData.qty" ng-change="QtyChange(rowData)" /></td>
                         <td>{{rowData.price}}</td>
                         <td>{{rowData.sum}}</td>
 
                     </tr>
 
                     <tr>
-                        <td colspan="4">Итого:</td>
-                        <td>{{models.total}}</td>
+                        <td colspan="4"><b>Итого:</b></td>
+                        <td><b>{{models.total}}</b></td>
 
                     </tr>
 
 
                 </table>
-                                
+
                 <button ng-click="gotoPaymentCmd()"> Перейти к оплате </button>
-                
+
             </div>
         </div>
 
         <div ng-switch-when="order">
-        
+
             <h2>Заказ № {{models.orderNumber}} </h2>
-            <b> К оплате {{models.Total}}</b>
+            <h3> К оплате {{models.total}}</h3>
             <br>
-            <button ng-click="paymentCmd"> Оплата </button>
+            Комментарий к заказу:
+            <br>
+            <textarea cols="30" rows="5" ng-model="models.comment"></textarea>
+            <br>
+            <button ng-click="paymentCmd()"> Оплата </button>
 
         </div>
-        
+
+        <div ng-switch-when="complete">
+
+            <h2>Благодарим за покупку, наш менеджер свяжется с вами!</h2>
+
+        </div>
+
         <div ng-switch-default>
-            
-            <h2>Нет товаров в корзине!</h2>
+
+            <h3>Нет товаров в корзине!</h3>
 
         </div>
 

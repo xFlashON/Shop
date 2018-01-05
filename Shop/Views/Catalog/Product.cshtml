@@ -17,11 +17,11 @@
         <img class="ProductImage" src=@Url.Action("GetImage", "Service", new { Area = "", imageId = Model.ProductImageId }) alt="@Model.Name">
 
         <div><p>Описание товара: @Model.Description</p></div>
-        <div><h2>Цена: @Model.Price</h2></div>
+        <div><h2>Цена: @Model.Price.ToString("c")</h2></div>
 
     </div>
 
-    <button onclick='AddToCart(@Model.Id)'>
+    <button onclick='AddToCart(@Model.Id, @Model.Price.ToString("0.00"))'>
         <img src="~/Resources/cart.png" style="max-height: 30px" />
         <b>Купить</b>
     </button>

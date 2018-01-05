@@ -28,7 +28,7 @@ namespace Servises.Interfaces
         void SaveNews(News news);
         Order GetOpenOrder(string userName);
         void SaveOrder(Order order);
-        void AddToCart(Product product, string userName);
+        void AddToCart(Product product, decimal price, string userName);
         void RemoveFromCart(Product product, string userName);
     }
 }

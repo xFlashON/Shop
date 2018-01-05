@@ -187,16 +187,22 @@ namespace Servises.BL
             DatabaseService.Save();
         }
 
-        public void AddToCart(Product product, string userName)
+        public void AddToCart(Product product, decimal price, string userName)
         {
 
             var order = GetOpenOrder(userName);
-            var row = order.OrderRows?.FirstOrDefault(r => r?.Product.Id == product.Id);
+            var row = order.OrderRows?.FirstOrDefault(r => r?.Product.Id == product.Id&&r?.Price==price);
 
             if (row != null)
-                row.Qty += 1;
+            {
+                row.Qty += 1; 
+                row.Sum = row.Price * row.Qty;
+                row.Product = null;//WTF??
+            }
             else
-                order.OrderRows.Add(new OrderRow() {OrderId = order.Id, ProductId = product.Id, Qty = 1 });
+            { 
+            order.OrderRows.Add(new OrderRow() {OrderId = order.Id, ProductId = product.Id, Qty = 1, Price = price, Sum = price });
+            }
 
             SaveOrder(order);
 

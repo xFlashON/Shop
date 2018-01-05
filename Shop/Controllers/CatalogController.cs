@@ -95,15 +95,30 @@ namespace Shop.Controllers
             if (product == null)
                 return HttpNotFound();
 
+            //Prices
+            int defaultPriceTypeId = 1;
+
+            var identity = (ClaimsPrincipal)Thread.CurrentPrincipal;
+            var priceTypeIdStr = identity.Claims.Where(c => c.Type == "PriceTypeId").FirstOrDefault()?.Value ?? "1";
+
+            Int32.TryParse(priceTypeIdStr, out defaultPriceTypeId);
+            //
+            defaultPriceTypeId = Math.Max(1, defaultPriceTypeId);
+
+            var price = blService.DatabaseService.PriceRepository.Get(p => p.PriceTypeId == defaultPriceTypeId && p.ProductId == product.Id).FirstOrDefault();
+
+            if (price != null)
+                product.Price = price.CurrentPrice;
+
             return PartialView(product);
         }
 
         [HttpPost]
-        public ActionResult AddToCart(int productId)
+        public ActionResult AddToCart(int productId, decimal price)
         {
             if (User.Identity.IsAuthenticated) {
 
-                blService.AddToCart(blService.GetProduct(productId),User.Identity.Name);
+                blService.AddToCart(blService.GetProduct(productId),price ,User.Identity.Name);
 
                 return new HttpStatusCodeResult(200);
 
