@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Security.Claims;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
 using DAL.Model;
+using Microsoft.AspNet.Identity;
 using Servises.Interfaces;
 using Shop.Models;
 
@@ -39,7 +42,25 @@ namespace Shop.Controllers
                 products = blService.GetAllProducts().OrderBy(p => random.Next()).Take(9);
             }
 
-            model.Products = Mapper.Map<IEnumerable<Product>, List<ProductViewModel>>(products);
+            //Prices
+            int defaultPriceTypeId = 1;
+
+            var identity = (ClaimsPrincipal)Thread.CurrentPrincipal;
+            var priceTypeIdStr =  identity.Claims.Where(c => c.Type == "PriceTypeId").FirstOrDefault()?.Value ?? "1";
+
+            Int32.TryParse(priceTypeIdStr, out defaultPriceTypeId);
+            //
+            defaultPriceTypeId = Math.Max(1, defaultPriceTypeId);
+
+            var prices = blService.DatabaseService.PriceRepository.Get(p => p.PriceTypeId == defaultPriceTypeId);
+
+            var tuple = from pr in products join ps in prices on pr.Id equals ps.ProductId into outer from ps in outer.DefaultIfEmpty() select new {product = pr, price = ps };
+
+            model.Products = tuple.Select(t=> {
+                var productVM = Mapper.Map<ProductViewModel>(t.product);
+                productVM.Price = t.price?.CurrentPrice??0;
+                return productVM;
+            });
 
             model.ProductTypes = Mapper.Map<IEnumerable<ProductType>, List<ProductTypeViewModel>>(productTypes);
 

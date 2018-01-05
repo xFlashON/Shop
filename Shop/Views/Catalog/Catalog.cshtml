@@ -28,7 +28,8 @@
                         <div class="thumbnail" onclick="OpenProductModalDialog(@product.Id)">
                             <img src=@Url.Action("GetImage", "Service", new { Area = "", imageId = product.ProductImageId }) alt="@product.Name">
                             <div class="caption">
-                                <b>@product.Name</b>
+                                <div class="col-md-6"><b>@product.Name</b></div>
+                                <div class="col-md-6"><b>Цена: @product.Price.ToString("c")</b></div>
                             </div>
                             <div class="caption">
                                 @product.ShortDescription

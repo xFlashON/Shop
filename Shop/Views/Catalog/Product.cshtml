@@ -17,6 +17,7 @@
         <img class="ProductImage" src=@Url.Action("GetImage", "Service", new { Area = "", imageId = Model.ProductImageId }) alt="@Model.Name">
 
         <div><p>Описание товара: @Model.Description</p></div>
+        <div><h2>Цена: @Model.Price</h2></div>
 
     </div>
 

@@ -30,6 +30,5 @@ namespace Servises.Interfaces
         void SaveOrder(Order order);
         void AddToCart(Product product, string userName);
         void RemoveFromCart(Product product, string userName);
-
     }
 }

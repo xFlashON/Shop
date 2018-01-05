@@ -15,6 +15,8 @@ namespace Shop.Utils
             Mapper.Initialize(cfg =>
             {
                 cfg.CreateMap<Product, ProductViewModel>();
+                cfg.CreateMap<Price, ProductViewModel>();
+
                 cfg.CreateMap<ProductType, ProductTypeViewModel>();
 
                 cfg.CreateMap<ProductViewModel,Product>();

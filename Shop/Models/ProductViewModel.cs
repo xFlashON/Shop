@@ -30,5 +30,7 @@ namespace Shop.Models
 
         public int? ProductImageId { get; set; }
 
+        public decimal Price { get; set; }
+
     }
 }
