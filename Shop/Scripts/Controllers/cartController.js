@@ -41,9 +41,11 @@
                 comment: $scope.models.comment,
                 orderRows: $scope.models.orderRows
             }) }
-            ).then(function (response) { console.log(response) });
+        ).then(
+            function (response) { $scope.models.mode = 'complete'; },
+            function (response) { console.log(response) });
 
-        $scope.models.mode = 'complete';
+
     }
 
     $scope.$watch('models.orderRows', calculateTotal);
