@@ -34,6 +34,15 @@
     };
 
     $scope.paymentCmd = function () {
+
+        $http.post("SaveOrder", {
+            orderData: JSON.stringify({
+                orderNumber: $scope.models.orderNumber,
+                comment: $scope.models.comment,
+                orderRows: $scope.models.orderRows
+            }) }
+            ).then(function (response) { console.log(response) });
+
         $scope.models.mode = 'complete';
     }
 
