@@ -62,7 +62,7 @@ namespace Shop.Areas.Admin.Controllers
         {
             if (groupId == null)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("References");
             }
 
             var model = blService.DatabaseService.ProductTypeRepository.Get((int)groupId);
@@ -131,7 +131,7 @@ namespace Shop.Areas.Admin.Controllers
         {
             if (productId == null)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("References");
             }
 
             var model = blService.DatabaseService.ProductRepository.Get((int)productId);
